@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Input;
 
+public enum InputType { KB, GP }
+
 public class PlayerInput : MonoBehaviour, IGameplayActions
 {
 	public static List<PlayerInput> all = new List<PlayerInput>();
@@ -14,6 +16,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	public int playerID = -1;
 
 	private PlayerMovement playerMovement;
+	private InputType inputType;
 
 	void OnEnable()
 	{
@@ -30,10 +33,20 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	{
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
+	}
+
+	public void Initialize()
+	{
 		GetPlayerID();
+		gameObject.name = "Player " + playerID;
 		if(testing)
 		{
 			inputDevice = InputSystem.GetDevice<Gamepad>();
+			inputType = InputType.GP;
+		}
+		else
+		{
+			inputType = (inputDevice is Gamepad) ? InputType.GP : InputType.KB;
 		}
 	}
 
@@ -51,7 +64,24 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		playerID = max + 1;
 	}
 
-	bool ValidateMyInput(InputAction.CallbackContext ctx)
+	// void Update()
+	// {
+		
+	// 	if(inputType == InputType.KB)
+	// 	{
+	// 		Keyboard kb = inputDevice as Keyboard;
+	// 		Vector2 moveDirection = new Vector2(kb.aKey.isPressed)
+	// 	}
+	// 	else
+	// 	{
+	// 		Gamepad gp = inputDevice as Gamepad;
+	// 		playerMovement.Move(gp.leftStick.ReadValue());
+	// 	}
+	// }
+
+	
+
+	bool IsMyInput(InputAction.CallbackContext ctx)
 	{
 		if(ctx.action.lastTriggerControl.device == inputDevice)
 		{
@@ -61,18 +91,24 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	}
 
 	public void OnMovement(InputAction.CallbackContext ctx)
-	{
-		//if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log("OM " + Time.time);
-		if(ValidateMyInput(ctx))
+	{	
+		if(!IsMyInput(ctx))
 		{
-			if(ctx.action.lastTriggerControl.device is Gamepad)
-			{
-				playerMovement.Move((ctx.action.lastTriggerControl.device as Gamepad).leftStick.ReadValue());
-			}
-			else
-			{
-				playerMovement.Move(ctx.ReadValue<Vector2>());
-			}
+			return;
+		}
+		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " OM ");
+		DoMovement(ctx);
+	}
+
+	void DoMovement(InputAction.CallbackContext ctx)
+	{
+		if(ctx.action.lastTriggerControl.device is Gamepad)
+		{
+			playerMovement.Move((ctx.action.lastTriggerControl.device as Gamepad).leftStick.ReadValue());
+		}
+		else
+		{
+			playerMovement.Move(ctx.ReadValue<Vector2>());
 		}
 	}
 }

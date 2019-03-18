@@ -9,8 +9,8 @@
                     "name": "Movement",
                     "id": "cc755d2b-8484-4b4b-9137-890833e24db9",
                     "expectedControlLayout": "Axis",
-                    "continuous": true,
-                    "passThrough": false,
+                    "continuous": false,
+                    "passThrough": true,
                     "processors": "",
                     "interactions": "",
                     "bindings": []

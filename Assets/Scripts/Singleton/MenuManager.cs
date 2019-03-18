@@ -97,6 +97,10 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	#region GAMESCENECHANGE
 	public void GoToGameScene()
 	{
+		if(inputDevices.Count <= 0)
+		{
+			return;
+		}
 		SceneManager.sceneLoaded += SpawnPlayers;
 		SceneManager.LoadScene("GameScene");
 	}
@@ -105,12 +109,13 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	{
 		SceneManager.sceneLoaded -= SpawnPlayers;
 		int x = 0;
-		Debug.Log("spawning");
+		
 		foreach(InputDevice i in inputDevices)
 		{
-			GameObject temp = Instantiate(playerPrefab, new Vector3(++x, 0, 0), Quaternion.identity);
-			temp.GetComponent<PlayerInput>().inputDevice = i;
-			temp.GetComponent<PlayerInput>().playerID = x;
+			PlayerInput temp = Instantiate(playerPrefab, new Vector3(++x, 0, 0), Quaternion.identity).GetComponent<PlayerInput>();
+			temp.inputDevice = i;
+			temp.playerID = x;
+			temp.Initialize();
 		}
 	}
 	#endregion
