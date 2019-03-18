@@ -15,8 +15,13 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	public InputDevice inputDevice;
 	public int playerID = -1;
 
-	private PlayerMovement playerMovement;
 	private InputType inputType;
+	private Gamepad gamepad;
+	private Keyboard keyboard;
+	private Mouse mouse;
+
+	private PlayerMovement playerMovement;
+	private PlayerAttack playerAttack;
 
 	void OnEnable()
 	{
@@ -33,6 +38,11 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	{
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
+		playerAttack = GetComponent<PlayerAttack>();
+		if(testing)
+		{
+			Initialize();
+		}
 	}
 
 	public void Initialize()
@@ -41,12 +51,28 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		gameObject.name = "Player " + playerID;
 		if(testing)
 		{
-			inputDevice = InputSystem.GetDevice<Gamepad>();
-			inputType = InputType.GP;
+			inputDevice = InputSystem.GetDevice<Keyboard>();
+			keyboard = inputDevice as Keyboard;
+			mouse = InputSystem.GetDevice<Mouse>();
+			inputType = InputType.KB;
+			// inputDevice = InputSystem.GetDevice<Gamepad>();
+			// gamepad = inputDevice as Gamepad;
+			// inputType = InputType.GP;
 		}
 		else
 		{
-			inputType = (inputDevice is Gamepad) ? InputType.GP : InputType.KB;
+			if(inputDevice is Gamepad)
+			{
+				gamepad = inputDevice as Gamepad;
+				inputType = InputType.GP;
+			}
+			else
+			{
+				keyboard = inputDevice as Keyboard;
+				mouse = InputSystem.GetDevice<Mouse>();
+				inputType = InputType.KB;
+			}
+			
 		}
 	}
 
@@ -56,7 +82,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		int max = -1;
+		int max = 0;
 		for(int x = 0; x < all.Count; ++x)
 		{
 			max = Mathf.Max(max, all[x].playerID);
@@ -83,7 +109,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	bool IsMyInput(InputAction.CallbackContext ctx)
 	{
-		if(ctx.action.lastTriggerControl.device == inputDevice)
+		if(ctx.action.lastTriggerControl.device == inputDevice || (inputType == InputType.KB && mouse == ctx.action.lastTriggerControl.device ))
 		{
 			return true;
 		}
@@ -96,19 +122,44 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " OM ");
+		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " MOVING ");
 		DoMovement(ctx);
 	}
 
 	void DoMovement(InputAction.CallbackContext ctx)
 	{
-		if(ctx.action.lastTriggerControl.device is Gamepad)
+		if(inputType == InputType.GP)
 		{
-			playerMovement.Move((ctx.action.lastTriggerControl.device as Gamepad).leftStick.ReadValue());
+			playerMovement.Move(gamepad.leftStick.ReadValue());
 		}
 		else
 		{
 			playerMovement.Move(ctx.ReadValue<Vector2>());
+		}
+	}
+
+	public void OnAttack(InputAction.CallbackContext ctx)
+	{
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
+		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " ATTACKING ");
+		DoAttack(ctx);
+	}
+
+	void DoAttack(InputAction.CallbackContext ctx)
+	{
+		if(inputType == InputType.GP)
+		{
+			playerAttack.Shoot(gamepad.rightStick.ReadValue());
+		}
+		else
+		{
+			Vector3 val = mouse.position.ReadValue();
+			val.z = -CameraController.instance.transform.position.z;
+			Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
+			playerAttack.Shoot(worldSpacePosition - transform.position);
 		}
 	}
 }

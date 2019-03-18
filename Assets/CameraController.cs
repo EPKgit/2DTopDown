@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
 	public float lerpFactor = 0.4f;
 
 	private float baseZ;
 
-	void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		baseZ = transform.position.z;
 	}
 

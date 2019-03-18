@@ -3,6 +3,7 @@ guid: 88744b43d48487d44b5797c7f31beedd
 ScriptedImporter:
   fileIDToRecycleName:
     11400000: <root>
+    11400004: Gameplay/Attack
     11400006: Menu/Join
     11400008: Menu/Leave
     11400012: Gameplay/Movement

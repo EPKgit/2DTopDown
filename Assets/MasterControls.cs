@@ -21,6 +21,7 @@ public class MasterControls : InputActionAssetReference
         // Gameplay
         m_Gameplay = asset.GetActionMap("Gameplay");
         m_Gameplay_Movement = m_Gameplay.GetAction("Movement");
+        m_Gameplay_Attack = m_Gameplay.GetAction("Attack");
         // Menu
         m_Menu = asset.GetActionMap("Menu");
         m_Menu_Join = m_Menu.GetAction("Join");
@@ -35,6 +36,7 @@ public class MasterControls : InputActionAssetReference
         }
         m_Gameplay = null;
         m_Gameplay_Movement = null;
+        m_Gameplay_Attack = null;
         if (m_MenuActionsCallbackInterface != null)
         {
             Menu.SetCallbacks(null);
@@ -62,11 +64,13 @@ public class MasterControls : InputActionAssetReference
     private InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private InputAction m_Gameplay_Movement;
+    private InputAction m_Gameplay_Attack;
     public struct GameplayActions
     {
         private MasterControls m_Wrapper;
         public GameplayActions(MasterControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement { get { return m_Wrapper.m_Gameplay_Movement; } }
+        public InputAction @Attack { get { return m_Wrapper.m_Gameplay_Attack; } }
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -80,6 +84,9 @@ public class MasterControls : InputActionAssetReference
                 Movement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                 Movement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                 Movement.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                Attack.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -87,6 +94,9 @@ public class MasterControls : InputActionAssetReference
                 Movement.started += instance.OnMovement;
                 Movement.performed += instance.OnMovement;
                 Movement.cancelled += instance.OnMovement;
+                Attack.started += instance.OnAttack;
+                Attack.performed += instance.OnAttack;
+                Attack.cancelled += instance.OnAttack;
             }
         }
     }
@@ -150,6 +160,7 @@ public class MasterControls : InputActionAssetReference
 public interface IGameplayActions
 {
     void OnMovement(InputAction.CallbackContext context);
+    void OnAttack(InputAction.CallbackContext context);
 }
 public interface IMenuActions
 {

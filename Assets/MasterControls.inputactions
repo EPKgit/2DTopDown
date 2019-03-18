@@ -14,6 +14,16 @@
                     "processors": "",
                     "interactions": "",
                     "bindings": []
+                },
+                {
+                    "name": "Attack",
+                    "id": "8ceb348d-a610-4df3-b3c4-16162752eeb5",
+                    "expectedControlLayout": "Button",
+                    "continuous": false,
+                    "passThrough": true,
+                    "processors": "",
+                    "interactions": "Press",
+                    "bindings": []
                 }
             ],
             "bindings": [
@@ -255,6 +265,42 @@
                     "chainWithPrevious": false,
                     "isComposite": false,
                     "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
                     "modifiers": ""
                 }
             ]
