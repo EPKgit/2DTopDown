@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 88744b43d48487d44b5797c7f31beedd
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: <root>
+    11400006: Menu/Join
+    11400008: Menu/Leave
+    11400012: Gameplay/Movement
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: e2fdc6edf8744b38b702a2a5ee3541b2, type: 3}
+  generateWrapperCode: 1
+  wrapperCodePath: Assets/MasterControls.cs
+  wrapperClassName: 
+  wrapperCodeNamespace: 
+  generateActionEvents: 0
+  generateInterfaces: 1
+  actionGuids: []
+  actionMapGuids: []
