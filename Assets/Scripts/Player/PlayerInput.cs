@@ -51,13 +51,13 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		gameObject.name = "Player " + playerID;
 		if(testing)
 		{
-			inputDevice = InputSystem.GetDevice<Keyboard>();
-			keyboard = inputDevice as Keyboard;
-			mouse = InputSystem.GetDevice<Mouse>();
-			inputType = InputType.KB;
-			// inputDevice = InputSystem.GetDevice<Gamepad>();
-			// gamepad = inputDevice as Gamepad;
-			// inputType = InputType.GP;
+			// inputDevice = InputSystem.GetDevice<Keyboard>();
+			// keyboard = inputDevice as Keyboard;
+			// mouse = InputSystem.GetDevice<Mouse>();
+			// inputType = InputType.KB;
+			inputDevice = InputSystem.GetDevice<Gamepad>();
+			gamepad = inputDevice as Gamepad;
+			inputType = InputType.GP;
 		}
 		else
 		{
@@ -89,24 +89,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		playerID = max + 1;
 	}
-
-	// void Update()
-	// {
-		
-	// 	if(inputType == InputType.KB)
-	// 	{
-	// 		Keyboard kb = inputDevice as Keyboard;
-	// 		Vector2 moveDirection = new Vector2(kb.aKey.isPressed)
-	// 	}
-	// 	else
-	// 	{
-	// 		Gamepad gp = inputDevice as Gamepad;
-	// 		playerMovement.Move(gp.leftStick.ReadValue());
-	// 	}
-	// }
-
-	
-
 	bool IsMyInput(InputAction.CallbackContext ctx)
 	{
 		if(ctx.action.lastTriggerControl.device == inputDevice || (inputType == InputType.KB && mouse == ctx.action.lastTriggerControl.device ))

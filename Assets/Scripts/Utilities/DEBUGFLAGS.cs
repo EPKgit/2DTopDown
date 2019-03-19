@@ -8,5 +8,6 @@ public class DEBUGFLAGS
 	public static bool MOVEMENT = false;
 	public static bool LIB = false;
 	public static bool COLLISIONS = false;
-	public static bool HEALTH;
+	public static bool HEALTH = false;
+	public static bool ENEMYHEALTH = true;
 }

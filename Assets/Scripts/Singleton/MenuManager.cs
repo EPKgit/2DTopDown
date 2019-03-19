@@ -15,6 +15,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 
 	private List<InputDevice> inputDevices;
 	private Transform layoutGroup;
+	private bool inMenu;
 
 	void OnEnable()
 	{
@@ -31,10 +32,15 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		controls.Menu.SetCallbacks(this);
 		inputDevices = new List<InputDevice>();
 		layoutGroup = GameObject.Find("Canvas").transform.Find("PlayerDisplayLayoutGroup");
+		inMenu = true;
 	}
 
 	void UpdateUI()
 	{
+		if(!inMenu)
+		{
+			return;
+		}
 		foreach(Transform child in layoutGroup.transform)
 		{
 			Destroy(child.gameObject);
@@ -46,25 +52,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 			GameObject temp = Instantiate(playerUIPrefab, Vector3.zero, Quaternion.identity, layoutGroup);
 			temp.transform.Find("PlayerText").GetComponent<Text>().text = "Player " + x;
 			temp.transform.Find("InputDeviceText").GetComponent<Text>().text = i.displayName;
-			switch(x)
-			{
-				case 1:
-					temp.GetComponent<Image>().color = Color.red;
-					break;
-				case 2:
-					temp.GetComponent<Image>().color = Color.green;
-					break;
-				case 3:
-					temp.GetComponent<Image>().color = Color.blue;
-					break;
-				case 4:
-					temp.GetComponent<Image>().color = Color.yellow;
-					break;
-				default:
-					temp.GetComponent<Image>().color = Color.black;
-					break;
-
-			}
+			temp.GetComponent<Image>().color = Lib.GetPlayerColorByIndex(x);
 		}
 	}
 
@@ -101,6 +89,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		}
 		SceneManager.sceneLoaded += SpawnPlayers;
 		SceneManager.LoadScene("GameScene");
+		inMenu = false;
 	}
 
 	void SpawnPlayers(Scene scene, LoadSceneMode lsm)

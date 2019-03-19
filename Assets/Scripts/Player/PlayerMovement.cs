@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		rb.velocity = direction;
+		rb.velocity = direction * moveSpeed;
 	}
 
 	public void Move(Vector2 dir)

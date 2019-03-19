@@ -4,33 +4,22 @@ using UnityEngine;
 
 public static class Lib
 {
-	// public static T FindInHierarchy<T>(GameObject start) where T : Component
-	// {
-	// 	GameObject top = start;
-	// 	while(top.transform.parent != null)
-	// 	{
-	// 		top = top.transform.parent.gameObject;
-	// 	}
-	// 	return Lib.RecursiveHelper<T>(top);
-	// }
-
-	// public static T RecursiveHelper<T>(GameObject check) where T : Component
-	// {
-	// 	T temp = (T)check.GetComponent(typeof(T));
-	// 	if(temp != null)
-	// 	{
-	// 		return temp;
-	// 	}
-	// 	foreach(Transform t in check.transform)
-	// 	{
-	// 		temp = Lib.RecursiveHelper<T>(t.gameObject);
-	// 		if(temp != null)
-	// 		{
-	// 			return temp;
-	// 		}
-	// 	}
-	// 	return null;
-	// }
+	public static Color GetPlayerColorByIndex(int index)
+	{
+		switch(index)
+		{
+			case 1:
+				return Color.blue;
+			case 2:
+				return Color.yellow;
+			case 3:
+				return new Color(107f / 255, 0, 111f / 255, 1);
+			case 4:
+				return new Color(222f / 255, 68f / 255 , 0, 1);
+			default:
+				return Color.black;
+		}
+	}
 	public static T FindInHierarchy<T>(GameObject start)
 	{
 		GameObject top = start;

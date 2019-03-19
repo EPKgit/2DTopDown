@@ -1,4 +1,6 @@
-﻿public interface IHealable 
+﻿using UnityEngine;
+
+public interface IHealable 
 {
-    void Heal(float delta);
+    void Heal(float delta, GameObject source);
 }
