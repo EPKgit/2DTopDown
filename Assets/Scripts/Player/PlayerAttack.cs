@@ -7,10 +7,12 @@ public class PlayerAttack : MonoBehaviour
     public GameObject bulletPrefab;
 
 	private Rigidbody2D rb;
+	private CircleCollider2D col;
 
 	void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		col = transform.Find("Colliders").GetComponent<CircleCollider2D>();
 	}
 
 	public void Shoot(Vector2 dir)
@@ -24,7 +26,9 @@ public class PlayerAttack : MonoBehaviour
 			}
 		}
 		dir.Normalize();
+		dir *= 3;
 		GameObject temp = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+		Physics2D.IgnoreCollision(col, temp.GetComponent<CircleCollider2D>());
 		Destroy(temp, 6f);
 		temp.GetComponent<Rigidbody2D>().velocity = dir;
 	}

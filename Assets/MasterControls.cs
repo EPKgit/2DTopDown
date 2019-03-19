@@ -25,7 +25,8 @@ public class MasterControls : InputActionAssetReference
         // Menu
         m_Menu = asset.GetActionMap("Menu");
         m_Menu_Join = m_Menu.GetAction("Join");
-        m_Menu_Leave = m_Menu.GetAction("Leave");
+        m_Menu_Back = m_Menu.GetAction("Back");
+        m_Menu_Continue = m_Menu.GetAction("Continue");
         m_Initialized = true;
     }
     private void Uninitialize()
@@ -43,7 +44,8 @@ public class MasterControls : InputActionAssetReference
         }
         m_Menu = null;
         m_Menu_Join = null;
-        m_Menu_Leave = null;
+        m_Menu_Back = null;
+        m_Menu_Continue = null;
         m_Initialized = false;
     }
     public void SetAsset(InputActionAsset newAsset)
@@ -112,13 +114,15 @@ public class MasterControls : InputActionAssetReference
     private InputActionMap m_Menu;
     private IMenuActions m_MenuActionsCallbackInterface;
     private InputAction m_Menu_Join;
-    private InputAction m_Menu_Leave;
+    private InputAction m_Menu_Back;
+    private InputAction m_Menu_Continue;
     public struct MenuActions
     {
         private MasterControls m_Wrapper;
         public MenuActions(MasterControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Join { get { return m_Wrapper.m_Menu_Join; } }
-        public InputAction @Leave { get { return m_Wrapper.m_Menu_Leave; } }
+        public InputAction @Back { get { return m_Wrapper.m_Menu_Back; } }
+        public InputAction @Continue { get { return m_Wrapper.m_Menu_Continue; } }
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -132,9 +136,12 @@ public class MasterControls : InputActionAssetReference
                 Join.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnJoin;
                 Join.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnJoin;
                 Join.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnJoin;
-                Leave.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnLeave;
-                Leave.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnLeave;
-                Leave.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnLeave;
+                Back.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                Back.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                Back.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                Continue.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
+                Continue.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
+                Continue.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -142,9 +149,12 @@ public class MasterControls : InputActionAssetReference
                 Join.started += instance.OnJoin;
                 Join.performed += instance.OnJoin;
                 Join.cancelled += instance.OnJoin;
-                Leave.started += instance.OnLeave;
-                Leave.performed += instance.OnLeave;
-                Leave.cancelled += instance.OnLeave;
+                Back.started += instance.OnBack;
+                Back.performed += instance.OnBack;
+                Back.cancelled += instance.OnBack;
+                Continue.started += instance.OnContinue;
+                Continue.performed += instance.OnContinue;
+                Continue.cancelled += instance.OnContinue;
             }
         }
     }
@@ -165,5 +175,6 @@ public interface IGameplayActions
 public interface IMenuActions
 {
     void OnJoin(InputAction.CallbackContext context);
-    void OnLeave(InputAction.CallbackContext context);
+    void OnBack(InputAction.CallbackContext context);
+    void OnContinue(InputAction.CallbackContext context);
 }

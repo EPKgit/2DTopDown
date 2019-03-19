@@ -122,7 +122,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " MOVING ");
+		if(DEBUGFLAGS.MOVEMENT) Debug.Log(gameObject.name + " MOVING ");
 		DoMovement(ctx);
 	}
 
@@ -144,7 +144,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		if(DEBUGFLAGS.DEBUGMOVEMENT) Debug.Log(gameObject.name + " ATTACKING ");
+		if(DEBUGFLAGS.MOVEMENT) Debug.Log(gameObject.name + " ATTACKING ");
 		DoAttack(ctx);
 	}
 

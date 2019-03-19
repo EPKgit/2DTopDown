@@ -71,26 +71,24 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	#region  INPUTCALLBACKs
 	public void OnJoin(InputAction.CallbackContext ctx)
 	{
-		//Debug.Log("OJ");
-		if(ctx.started)
+		if(DEBUGFLAGS.MENU) Debug.Log("palyer joined?");
+		if(!inputDevices.Contains(ctx.action.lastTriggerControl.device))
 		{
-			if(DEBUGFLAGS.DEBUGMENU) Debug.Log("palyer joined?");
-			if(!inputDevices.Contains(ctx.action.lastTriggerControl.device))
-			{
-				inputDevices.Add(ctx.action.lastTriggerControl.device);
-				UpdateUI();
-			}
+			inputDevices.Add(ctx.action.lastTriggerControl.device);
+			UpdateUI();
 		}
 	}
 
-	public void OnLeave(InputAction.CallbackContext ctx)
+	public void OnBack(InputAction.CallbackContext ctx)
 	{
-		if(ctx.started)
-		{
-			if(DEBUGFLAGS.DEBUGMENU) Debug.Log("player left?");
-			inputDevices.Remove(ctx.action.lastTriggerControl.device);
-			UpdateUI();
-		}
+		if(DEBUGFLAGS.MENU) Debug.Log("player left?");
+		inputDevices.Remove(ctx.action.lastTriggerControl.device);
+		UpdateUI();
+	}
+
+	public void OnContinue(InputAction.CallbackContext ctx)
+	{
+		GoToGameScene();
 	}
 	#endregion
 
