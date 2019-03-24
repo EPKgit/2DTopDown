@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Input;
 
 public static class Lib
 {
@@ -20,6 +21,7 @@ public static class Lib
 				return Color.black;
 		}
 	}
+
 	public static T FindInHierarchy<T>(GameObject start)
 	{
 		GameObject top = start;
@@ -30,7 +32,7 @@ public static class Lib
 		return Lib.RecursiveHelper<T>(top);
 	}
 
-	public static T RecursiveHelper<T>(GameObject check)
+	static T RecursiveHelper<T>(GameObject check)
 	{
 		if(DEBUGFLAGS.LIB) Debug.Log("checking " + check.name);
 		T temp = check.GetComponent<T>();
@@ -48,5 +50,13 @@ public static class Lib
 			}
 		}
 		return default(T);
+	}
+
+	public static Vector3 GetMouseDirection(Mouse m, GameObject from)
+	{
+		Vector3 val = m.position.ReadValue();
+		val.z = -CameraController.instance.transform.position.z;
+		Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
+		return worldSpacePosition - from.transform.position;
 	}
 }

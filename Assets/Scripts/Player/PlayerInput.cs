@@ -138,10 +138,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		else
 		{
-			Vector3 val = mouse.position.ReadValue();
-			val.z = -CameraController.instance.transform.position.z;
-			Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
-			playerAttack.Shoot(worldSpacePosition - transform.position);
+			playerAttack.Shoot(Lib.GetMouseDirection(mouse, gameObject));
 		}
 	}
 }
