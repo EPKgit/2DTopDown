@@ -22,6 +22,9 @@ public class MasterControls : InputActionAssetReference
         m_Gameplay = asset.GetActionMap("Gameplay");
         m_Gameplay_Movement = m_Gameplay.GetAction("Movement");
         m_Gameplay_Attack = m_Gameplay.GetAction("Attack");
+        m_Gameplay_Ability1 = m_Gameplay.GetAction("Ability1");
+        m_Gameplay_Ability2 = m_Gameplay.GetAction("Ability2");
+        m_Gameplay_Ability3 = m_Gameplay.GetAction("Ability3");
         // Menu
         m_Menu = asset.GetActionMap("Menu");
         m_Menu_Join = m_Menu.GetAction("Join");
@@ -38,6 +41,9 @@ public class MasterControls : InputActionAssetReference
         m_Gameplay = null;
         m_Gameplay_Movement = null;
         m_Gameplay_Attack = null;
+        m_Gameplay_Ability1 = null;
+        m_Gameplay_Ability2 = null;
+        m_Gameplay_Ability3 = null;
         if (m_MenuActionsCallbackInterface != null)
         {
             Menu.SetCallbacks(null);
@@ -67,12 +73,18 @@ public class MasterControls : InputActionAssetReference
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private InputAction m_Gameplay_Movement;
     private InputAction m_Gameplay_Attack;
+    private InputAction m_Gameplay_Ability1;
+    private InputAction m_Gameplay_Ability2;
+    private InputAction m_Gameplay_Ability3;
     public struct GameplayActions
     {
         private MasterControls m_Wrapper;
         public GameplayActions(MasterControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement { get { return m_Wrapper.m_Gameplay_Movement; } }
         public InputAction @Attack { get { return m_Wrapper.m_Gameplay_Attack; } }
+        public InputAction @Ability1 { get { return m_Wrapper.m_Gameplay_Ability1; } }
+        public InputAction @Ability2 { get { return m_Wrapper.m_Gameplay_Ability2; } }
+        public InputAction @Ability3 { get { return m_Wrapper.m_Gameplay_Ability3; } }
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -89,6 +101,15 @@ public class MasterControls : InputActionAssetReference
                 Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 Attack.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                Ability1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility1;
+                Ability1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility1;
+                Ability1.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility1;
+                Ability2.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility2;
+                Ability2.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility2;
+                Ability2.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility2;
+                Ability3.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
+                Ability3.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
+                Ability3.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -99,6 +120,15 @@ public class MasterControls : InputActionAssetReference
                 Attack.started += instance.OnAttack;
                 Attack.performed += instance.OnAttack;
                 Attack.cancelled += instance.OnAttack;
+                Ability1.started += instance.OnAbility1;
+                Ability1.performed += instance.OnAbility1;
+                Ability1.cancelled += instance.OnAbility1;
+                Ability2.started += instance.OnAbility2;
+                Ability2.performed += instance.OnAbility2;
+                Ability2.cancelled += instance.OnAbility2;
+                Ability3.started += instance.OnAbility3;
+                Ability3.performed += instance.OnAbility3;
+                Ability3.cancelled += instance.OnAbility3;
             }
         }
     }
@@ -171,6 +201,9 @@ public interface IGameplayActions
 {
     void OnMovement(InputAction.CallbackContext context);
     void OnAttack(InputAction.CallbackContext context);
+    void OnAbility1(InputAction.CallbackContext context);
+    void OnAbility2(InputAction.CallbackContext context);
+    void OnAbility3(InputAction.CallbackContext context);
 }
 public interface IMenuActions
 {

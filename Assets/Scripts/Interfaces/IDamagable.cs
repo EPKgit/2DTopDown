@@ -2,5 +2,5 @@
 
 public interface IDamagable
 {
-	void Damage(float delta);
+	void Damage(float delta, GameObject source);
 }

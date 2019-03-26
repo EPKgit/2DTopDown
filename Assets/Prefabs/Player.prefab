@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 8091316261218852960}
   - component: {fileID: 7610905490782741357}
   - component: {fileID: 4847284770159747905}
+  - component: {fileID: 507927494127364977}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +59,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5953794992538467936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0467c1000d5263043ad6d39a97c5d68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testing: 0
+  testingController: 0
+  testingMouseAndKeyboard: 0
   controls:
     m_Asset: {fileID: 11400000, guid: 88744b43d48487d44b5797c7f31beedd, type: 3}
   playerID: -1
@@ -87,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51dd857af1856d409c1e0fbf7d3e99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
 --- !u!114 &8091316261218852960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+--- !u!114 &507927494127364977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6736965120114129077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b619c07d07168f94b93b2e2a20b24c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectorValues:
+  - name: 0
+    value: 1
+  - name: 1
+    value: 1
+  - name: 2
+    value: 5
 --- !u!1 &7094911074184056103
 GameObject:
   m_ObjectHideFlags: 0

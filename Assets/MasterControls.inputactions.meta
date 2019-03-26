@@ -6,8 +6,11 @@ ScriptedImporter:
     11400002: Menu/Back
     11400004: Gameplay/Attack
     11400006: Menu/Join
+    11400008: Gameplay/Ability1
     11400010: Menu/Continue
     11400012: Gameplay/Movement
+    11400014: Gameplay/Ability2
+    11400016: Gameplay/Ability3
   externalObjects: {}
   userData: 
   assetBundleName: 

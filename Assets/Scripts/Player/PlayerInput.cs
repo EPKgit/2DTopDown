@@ -9,7 +9,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 {
 	public static List<PlayerInput> all = new List<PlayerInput>();
 
-	public bool testing = false;
+	public bool testingController = false;
+	public bool testingMouseAndKeyboard = false;
 
     public MasterControls controls;
 	public InputDevice inputDevice;
@@ -22,6 +23,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	private PlayerMovement playerMovement;
 	private PlayerAttack playerAttack;
+
+	#region INIT
 
 	void OnEnable()
 	{
@@ -39,25 +42,35 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
 		playerAttack = GetComponent<PlayerAttack>();
-		if(testing)
+		if(testingController || testingMouseAndKeyboard)
 		{
+			if(testingController && testingMouseAndKeyboard)
+			{
+				throw new System.InvalidOperationException("Cannot test both mouse+KB and controller on " + gameObject.name);
+			}
 			Initialize();
 		}
 	}
 
 	public void Initialize()
 	{
-		GetPlayerID();
+		if(playerID == -1)
+		{
+			GetPlayerID();
+		}
 		gameObject.name = "Player " + playerID;
-		if(testing)
+		if(testingController)
+		{
+			inputDevice = InputSystem.GetDevice<Gamepad>();
+			gamepad = inputDevice as Gamepad;
+			inputType = InputType.GP;
+		}
+		else if(testingMouseAndKeyboard)
 		{
 			inputDevice = InputSystem.GetDevice<Keyboard>();
 			keyboard = inputDevice as Keyboard;
 			mouse = InputSystem.GetDevice<Mouse>();
 			inputType = InputType.KB;
-			// inputDevice = InputSystem.GetDevice<Gamepad>();
-			// gamepad = inputDevice as Gamepad;
-			// inputType = InputType.GP;
 		}
 		else
 		{
@@ -78,10 +91,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	void GetPlayerID()
 	{
-		if(playerID != -1)
-		{
-			return;
-		}
 		int max = 0;
 		for(int x = 0; x < all.Count; ++x)
 		{
@@ -90,22 +99,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		playerID = max + 1;
 	}
 
-	// void Update()
-	// {
-		
-	// 	if(inputType == InputType.KB)
-	// 	{
-	// 		Keyboard kb = inputDevice as Keyboard;
-	// 		Vector2 moveDirection = new Vector2(kb.aKey.isPressed)
-	// 	}
-	// 	else
-	// 	{
-	// 		Gamepad gp = inputDevice as Gamepad;
-	// 		playerMovement.Move(gp.leftStick.ReadValue());
-	// 	}
-	// }
-
-	
+	#endregion
 
 	bool IsMyInput(InputAction.CallbackContext ctx)
 	{
@@ -115,6 +109,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		return false;
 	}
+
+	#region MOVEMENT
 
 	public void OnMovement(InputAction.CallbackContext ctx)
 	{	
@@ -138,6 +134,10 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 	}
 
+	#endregion
+
+	#region ATTACK
+
 	public void OnAttack(InputAction.CallbackContext ctx)
 	{
 		if(!IsMyInput(ctx))
@@ -156,10 +156,26 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		else
 		{
-			Vector3 val = mouse.position.ReadValue();
-			val.z = -CameraController.instance.transform.position.z;
-			Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
-			playerAttack.Shoot(worldSpacePosition - transform.position);
+			playerAttack.Shoot(Lib.GetMouseDirection(mouse, gameObject));
 		}
 	}
+
+	#endregion
+
+	#region ABILITIES
+
+	public void OnAbility1(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A1");
+	}
+	public void OnAbility2(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A2");
+	}
+	public void OnAbility3(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A3");
+	}
+
+	#endregion
 }

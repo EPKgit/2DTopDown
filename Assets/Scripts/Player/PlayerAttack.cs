@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StatBlock))]
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject bulletPrefab;
 
 	private Rigidbody2D rb;
 	private CircleCollider2D col;
+	private StatBlock stats;
 
 	void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		col = transform.Find("Colliders").GetComponent<CircleCollider2D>();
+		stats = GetComponent<StatBlock>();
 	}
 
 	public void Shoot(Vector2 dir)
