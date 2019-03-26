@@ -14,7 +14,7 @@ public class CameraController : Singleton<CameraController>
 		baseZ = transform.position.z;
 	}
 
-	void Update()
+	void LateUpdate()
 	{
 		float xVal = 0;
 		float yVal = 0;
