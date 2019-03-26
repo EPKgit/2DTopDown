@@ -26,8 +26,9 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		controls.Disable();
 	}
 
-	void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		DontDestroyOnLoad(gameObject);
 		controls.Menu.SetCallbacks(this);
 		inputDevices = new List<InputDevice>();

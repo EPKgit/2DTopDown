@@ -17,6 +17,10 @@ public class BaseEnemy : MonoBehaviour
 	void Start()
 	{
 		chosenPlayer = PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;
+		if(chosenPlayer == null)
+		{
+			throw new System.InvalidOperationException("Enemy cannot find target! " + gameObject.name);
+		}
 	}
     void Update()
 	{

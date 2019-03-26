@@ -17,7 +17,7 @@ public class Stat
 	}
 	private float _value;
 
-	public string name;
+	public StatName name;
 
 	public delegate void StatChangeDelegate(float value);
 	public event StatChangeDelegate statChangeEvent = delegate {};
@@ -26,10 +26,17 @@ public class Stat
     private List<Tuple<float, int>> multiplicativeModifiers = new List<Tuple<float, int>>();
     private List<Tuple<float, int>> additiveModifiers = new List<Tuple<float, int>>();
 
-	public Stat(string s, float f)
+	public Stat(StatName s, float f)
 	{
 		name = s;
-		baseValue = f;
+		SetBaseValue(f);
+	}
+
+	public Stat(StatInspectorValue s)
+	{
+		name = s.name;
+		SetBaseValue(s.value);
+		Debug.Log(name + " created with value:" + baseValue);
 	}
 
     private void UpdateCurrentValue()
@@ -76,6 +83,16 @@ public class Stat
         multiplicativeModifiers.RemoveAll( (t) => t.Item2 == i );
         UpdateCurrentValue();
     }
+
+	public void RegisterStatChangeCallback(StatChangeDelegate d)
+	{
+		statChangeEvent += d;
+	}
+	public void UnregisterStatChangeCallback(StatChangeDelegate d)
+	{
+		statChangeEvent -= d;
+	}
+
 
 	public override string ToString()
 	{

@@ -9,5 +9,5 @@ public class DEBUGFLAGS
 	public static bool LIB = false;
 	public static bool COLLISIONS = false;
 	public static bool HEALTH = false;
-	public static bool ENEMYHEALTH = true;
+	public static bool ENEMYHEALTH = false;
 }

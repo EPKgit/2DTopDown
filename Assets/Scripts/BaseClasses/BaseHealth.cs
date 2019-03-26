@@ -13,11 +13,47 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	public event HealthChangeNotificationDelegate healthChangeEvent = delegate { };
 	
 	private float currentHealth;
+	private StatBlock stats;
 
     void Start()
     {
+		stats = GetComponent<StatBlock>();
+		if(stats != null)
+		{
+			if(stats.HasStat(StatName.Toughness))
+			{
+				maxHealth = stats.GetValue(StatName.Toughness);
+			}
+		}
 		currentHealth = maxHealth;
     }
+
+	void OnEnable()
+	{
+		// if(stats != null)
+		// {
+		// 	if(stats.HasStat(StatName.Toughness))
+		// 	{
+		// 		Stat temp = stats.GetStat(StatName.Toughness);
+		// 		if(temp != null)
+		// 		{
+		// 			temp.statChangeEvent += UpdateMaxHealth;
+		// 		}	
+		// 	}
+		// }
+		stats?.GetStat(StatName.Toughness)?.RegisterStatChangeCallback(UpdateMaxHealth);
+	}
+
+	void OnDisable()
+	{
+		stats?.GetStat(StatName.Toughness)?.UnregisterStatChangeCallback(UpdateMaxHealth);	
+	}
+
+	public void UpdateMaxHealth(float value)
+	{
+		currentHealth = currentHealth / maxHealth * value;
+		maxHealth = value;
+	}
 
 	public void Damage(float delta, GameObject s)
 	{

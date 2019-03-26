@@ -186,6 +186,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dc186b4ba4e76444ad907d2360040a9, type: 3}
+--- !u!1 &796819626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736965120114129077, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1601938531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &796819634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796819626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b619c07d07168f94b93b2e2a20b24c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectorValues:
+  - name: 0
+    value: 1
+  - name: 1
+    value: 1
+  - name: 2
+    value: 1
 --- !u!1 &845252692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1430077456077003647, guid: 3dc186b4ba4e76444ad907d2360040a9,
@@ -364,6 +389,16 @@ PrefabInstance:
       propertyPath: testing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5953794992538467936, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: testingController
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953794992538467936, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: testingMouseAndKeyboard
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5596944894322127957, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
         type: 3}
       propertyPath: moveSpeed
@@ -397,7 +432,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973658432}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e005b61700b73fa4f8bfa3bf1a93c679, type: 3}
   m_Name: 

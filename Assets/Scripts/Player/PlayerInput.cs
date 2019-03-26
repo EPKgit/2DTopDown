@@ -9,7 +9,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 {
 	public static List<PlayerInput> all = new List<PlayerInput>();
 
-	public bool testing = false;
+	public bool testingController = false;
+	public bool testingMouseAndKeyboard = false;
 
     public MasterControls controls;
 	public InputDevice inputDevice;
@@ -39,25 +40,35 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
 		playerAttack = GetComponent<PlayerAttack>();
-		if(testing)
+		if(testingController || testingMouseAndKeyboard)
 		{
+			if(testingController && testingMouseAndKeyboard)
+			{
+				throw new System.InvalidOperationException("Cannot test both mouse+KB and controller on " + gameObject.name);
+			}
 			Initialize();
 		}
 	}
 
 	public void Initialize()
 	{
-		GetPlayerID();
-		gameObject.name = "Player " + playerID;
-		if(testing)
+		if(playerID == -1)
 		{
-			// inputDevice = InputSystem.GetDevice<Keyboard>();
-			// keyboard = inputDevice as Keyboard;
-			// mouse = InputSystem.GetDevice<Mouse>();
-			// inputType = InputType.KB;
+			GetPlayerID();
+		}
+		gameObject.name = "Player " + playerID;
+		if(testingController)
+		{
 			inputDevice = InputSystem.GetDevice<Gamepad>();
 			gamepad = inputDevice as Gamepad;
 			inputType = InputType.GP;
+		}
+		else if(testingMouseAndKeyboard)
+		{
+			inputDevice = InputSystem.GetDevice<Keyboard>();
+			keyboard = inputDevice as Keyboard;
+			mouse = InputSystem.GetDevice<Mouse>();
+			inputType = InputType.KB;
 		}
 		else
 		{
@@ -78,10 +89,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	void GetPlayerID()
 	{
-		if(playerID != -1)
-		{
-			return;
-		}
 		int max = 0;
 		for(int x = 0; x < all.Count; ++x)
 		{
