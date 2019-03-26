@@ -11,4 +11,5 @@ public class DEBUGFLAGS
 	public static bool HEALTH = false;
 	public static bool ENEMYHEALTH = false;
 	public static bool STATS = false;
+	public static bool ABILITY = false;
 }

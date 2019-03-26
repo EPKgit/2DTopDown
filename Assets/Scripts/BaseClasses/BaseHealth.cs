@@ -15,32 +15,15 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	private float currentHealth;
 	private StatBlock stats;
 
-    void Start()
+    void Awake()
     {
 		stats = GetComponent<StatBlock>();
-		if(stats != null)
-		{
-			if(stats.HasStat(StatName.Toughness))
-			{
-				maxHealth = stats.GetValue(StatName.Toughness);
-			}
-		}
+		maxHealth = stats?.GetValue(StatName.Toughness) ?? maxHealth;
 		currentHealth = maxHealth;
     }
 
 	void OnEnable()
 	{
-		// if(stats != null)
-		// {
-		// 	if(stats.HasStat(StatName.Toughness))
-		// 	{
-		// 		Stat temp = stats.GetStat(StatName.Toughness);
-		// 		if(temp != null)
-		// 		{
-		// 			temp.statChangeEvent += UpdateMaxHealth;
-		// 		}	
-		// 	}
-		// }
 		stats?.GetStat(StatName.Toughness)?.RegisterStatChangeCallback(UpdateMaxHealth);
 	}
 
@@ -99,6 +82,11 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	{
 		transform.position = Vector3.zero;
 		currentHealth = maxHealth;
+	}
+
+	public float GetCurrentHealth()
+	{
+		return currentHealth;
 	}
 }
 

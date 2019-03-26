@@ -1,37 +1,128 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Input;
 
+/// <summary>
+/// Represents an ability in the game, that's usable by the player. They are instantiated when the player is spawned,
+/// then initialized, and used repeatedly over the lifetime of the player object. The player gets a reference to a
+/// saved asset AbilitySet that hold the abilities it will have, abilities are activated by PlayerAbilities.
+/// </summary>
 public class Ability : ScriptableObject
 {
-	//set true if you want the ability's Tick function and FinishAbility functions to get called
-	public bool instantEffect;
+	/// <summary>
+	/// Set true if you want the ability's Tick function and FinishAbility functions to get called
+	/// </summary>
+	public bool tickingAbility;
+	/// <summary>
+	/// Set true if the ability has a duration, if so the parent class's tick can be used to remove the
+	/// effect once it's done, otherwise it's up to the ability to return true in Tick when it's finished
+	/// </summary>
+	public bool hasDuration;
+
+	/// <summary>
+	/// The amount of time the ability will remain active if hasDuration is true
+	/// </summary>
+	public float maxDuration;
+
+	/// <summary>
+	/// Set true if you want the ability to only respond to the button press event
+	/// </summary>
+	public bool pressOnly = true;
+
+	/// <summary>
+	/// The amount of resource to remove from the player when checking the cost
+	/// </summary>
 	public float cost;
 
-	//returns true if the ability is used succesfully
-	//parental default just checks if the cost is payable, children can have more requirements
-    public virtual bool AttemptUseAbility(PlayerAbilities pa)
+	/// <summary>
+	/// Represents the current duration of the ticking ability while it is running.
+	/// Resets to the max duration after the ability is finished
+	/// </summary>
+	protected float currentDuration;
+
+	protected PlayerAbilities playerAbilities;
+
+	/// <summary>
+	/// Called once when the ability is intantiated, should be used to setup references that the ability
+	/// will need over its lifetime e.g. a rigidbody reference
+	/// </summary>
+	public virtual void Initialize(PlayerAbilities pa)
 	{
-		UseAbility(pa);
+		playerAbilities = pa;
+		Reinitialize();
+	}
+
+	/// <summary>
+	/// Called multiple times over the abilities lifetime, every time the ability is ended. Used to reset
+	/// any state changes over the course of ability's use that should be reverted e.g. timers should be
+	/// reset to 0.
+	/// </summary>
+	public virtual void Reinitialize()
+	{
+		currentDuration = maxDuration;
+	}
+
+	/// <summary>
+	/// Parental default just checks if the cost is payable, children can have more requirements
+	/// </summary>
+	/// <returns>
+	/// Returns true if the ability is used succesfully
+	/// </returns>
+    public virtual bool AttemptUseAbility(InputAction.CallbackContext ctx, Vector2 inputDirection)
+	{
+		if(DEBUGFLAGS.ABILITY) if(DEBUGFLAGS.ABILITY) Debug.Log(string.Format("{0} ATTEMPT USE perf:{1} strt:{2} canc:{3}", name, ctx.performed, ctx.started, ctx.cancelled));
+		// if the ability only wants buttondown and it wasn't or if the ability is already ticking, don't use
+		// should also check cost
+		if( (pressOnly && !ctx.performed) || currentDuration != maxDuration)
+		{
+			return false;
+		}
+		UseAbility(ctx, inputDirection);
 		return true;
 	}
 
-	//actual effect of the ability
-	protected virtual void UseAbility(PlayerAbilities pa)
+	/// <summary>
+	/// Actually uses the ability if AttemptUseAbility completes
+	/// </summary>
+	protected virtual void UseAbility(InputAction.CallbackContext ctx, Vector2 inputDirection)
 	{
 
 	}
 
-	//returns true if the ability wants to end
-	//gets called if the ability has an ongoing effect, over multiple frames
-	protected virtual bool Tick(float deltaTime, PlayerAbilities pa)
+	/// <summary>
+	/// Gets called if the ability has an ongoing effect, over multiple frames
+	/// </summary>
+	/// <returns>
+	/// Returns true if the ability wants to end (removed from the ticking list)
+	/// </returns>
+	public virtual bool Tick(float deltaTime)
 	{
+		currentDuration -= deltaTime;
+		if(currentDuration <= 0)
+		{
+			return true;
+		}
 		return false;
 	}
 
-	//gets called when the abilitys tick returns true and the ability is finished
-	protected virtual void FinishAbility(PlayerAbilities pa)
+	/// <summary>
+	/// Gets called when the abilitys tick returns true and the ability is finished
+	/// </summary>
+	public virtual void FinishAbility()
 	{
 
+	}
+
+	public new virtual string ToString()
+	{
+		if(hasDuration)
+		{
+			return string.Format("{0} {1}/{2}", this.GetType().Name, currentDuration, maxDuration);
+		}
+		else
+		{
+			return this.GetType().Name;
+		}
 	}
 }

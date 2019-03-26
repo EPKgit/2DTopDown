@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(StatBlock))]
 public class PlayerMovement : MonoBehaviour
 {
+	public float movementSpeed;
+
 	private Vector2 direction;
 
 	private Rigidbody2D rb;
@@ -16,21 +18,29 @@ public class PlayerMovement : MonoBehaviour
 		stats = GetComponent<StatBlock>();
 	}
 
-	void Start()
+	void OnEnable()
 	{
-		if(!stats.HasStat(StatName.Agility))
-		{
-			throw new System.InvalidOperationException("PlayerMovement on " + gameObject.name + " doesn't have an agility value to work with");
-		}
+		movementSpeed = (stats?.HasStat(StatName.Agility) ?? false) ? stats.GetValue(StatName.Agility) : movementSpeed;
+		stats?.GetStat(StatName.Agility)?.RegisterStatChangeCallback(UpdateSpeed);
+	}
+
+	void OnDisable()
+	{
+		stats?.GetStat(StatName.Agility)?.UnregisterStatChangeCallback(UpdateSpeed);
 	}
 
 	void Update()
 	{
-		rb.velocity = direction * stats.GetValue(StatName.Agility);
+		rb.velocity = direction * movementSpeed;
 	}
 
 	public void Move(Vector2 dir)
 	{
 		direction = dir;
+	}
+
+	public void UpdateSpeed(float f)
+	{
+		movementSpeed = f;
 	}
 }

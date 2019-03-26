@@ -23,6 +23,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	private PlayerMovement playerMovement;
 	private PlayerAttack playerAttack;
+	private PlayerAbilities playerAbilities;
 
 	#region INIT
 
@@ -41,7 +42,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	{
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
-		playerAttack = GetComponent<PlayerAttack>();
+		playerAbilities = GetComponent<PlayerAbilities>();
 		if(testingController || testingMouseAndKeyboard)
 		{
 			if(testingController && testingMouseAndKeyboard)
@@ -124,14 +125,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	void DoMovement(InputAction.CallbackContext ctx)
 	{
-		if(inputType == InputType.GP)
-		{
-			playerMovement.Move(gamepad.leftStick.ReadValue());
-		}
-		else
-		{
-			playerMovement.Move(ctx.ReadValue<Vector2>());
-		}
+		playerMovement.Move(Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject, true));
 	}
 
 	#endregion
@@ -144,20 +138,12 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		if(DEBUGFLAGS.MOVEMENT) Debug.Log(gameObject.name + " ATTACKING ");
 		DoAttack(ctx);
 	}
 
 	void DoAttack(InputAction.CallbackContext ctx)
 	{
-		if(inputType == InputType.GP)
-		{
-			playerAttack.Shoot(gamepad.rightStick.ReadValue());
-		}
-		else
-		{
-			playerAttack.Shoot(Lib.GetMouseDirection(mouse, gameObject));
-		}
+		playerAbilities.Attack(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 
 	#endregion
@@ -166,15 +152,15 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	public void OnAbility1(InputAction.CallbackContext ctx)
 	{
-		Debug.Log("A1");
+		playerAbilities.Ability1(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 	public void OnAbility2(InputAction.CallbackContext ctx)
 	{
-		Debug.Log("A2");
+		playerAbilities.Ability2(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 	public void OnAbility3(InputAction.CallbackContext ctx)
 	{
-		Debug.Log("A3");
+		playerAbilities.Ability3(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 
 	#endregion

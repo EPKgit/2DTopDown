@@ -6,8 +6,6 @@ using UnityEditor;
 [CustomEditor(typeof(BaseHealth))]
 public class BaseHealthInspector : Editor
 {
-    public static bool debugFoldout = true;
-
 	private BaseHealth baseHealth;
 	private StatBlock statBlock;
 	
@@ -20,7 +18,12 @@ public class BaseHealthInspector : Editor
 
 	public override void OnInspectorGUI()
 	{
-		if(statBlock == null)
+		if(EditorApplication.isPlaying || EditorApplication.isPaused)
+		{
+			EditorGUILayout.LabelField(string.Format("{0}/{1}", baseHealth.GetCurrentHealth(), baseHealth.maxHealth));
+			return;
+		}
+		if(statBlock == null || !statBlock.HasStat(StatName.Toughness))
 		{
 			base.OnInspectorGUI();
 		}
