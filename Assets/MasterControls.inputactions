@@ -24,6 +24,36 @@
                     "processors": "",
                     "interactions": "Press",
                     "bindings": []
+                },
+                {
+                    "name": "Ability1",
+                    "id": "370f7f8f-fd2c-4fe7-8abf-9e30ac711c71",
+                    "expectedControlLayout": "Button",
+                    "continuous": false,
+                    "passThrough": true,
+                    "processors": "",
+                    "interactions": "Press",
+                    "bindings": []
+                },
+                {
+                    "name": "Ability2",
+                    "id": "e8f58e7e-2c89-43b5-a86a-1e439fbce3d0",
+                    "expectedControlLayout": "",
+                    "continuous": false,
+                    "passThrough": true,
+                    "processors": "",
+                    "interactions": "Press",
+                    "bindings": []
+                },
+                {
+                    "name": "Ability3",
+                    "id": "d5a0c7af-21c6-41c4-8848-16eebd5c72f7",
+                    "expectedControlLayout": "",
+                    "continuous": false,
+                    "passThrough": true,
+                    "processors": "",
+                    "interactions": "Press",
+                    "bindings": []
                 }
             ],
             "bindings": [
@@ -298,6 +328,78 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability1",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability1",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability2",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability2",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability3",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability3",
                     "chainWithPrevious": false,
                     "isComposite": false,
                     "isPartOfComposite": false,

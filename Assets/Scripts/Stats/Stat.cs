@@ -36,7 +36,7 @@ public class Stat
 	{
 		name = s.name;
 		SetBaseValue(s.value);
-		Debug.Log(name + " created with value:" + baseValue);
+		if(DEBUGFLAGS.STATS) Debug.Log(name + " created with value:" + baseValue);
 	}
 
     private void UpdateCurrentValue()

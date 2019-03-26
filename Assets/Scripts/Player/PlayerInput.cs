@@ -24,6 +24,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	private PlayerMovement playerMovement;
 	private PlayerAttack playerAttack;
 
+	#region INIT
+
 	void OnEnable()
 	{
 		all.Add(this);
@@ -96,6 +98,9 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		playerID = max + 1;
 	}
+
+	#endregion
+
 	bool IsMyInput(InputAction.CallbackContext ctx)
 	{
 		if(ctx.action.lastTriggerControl.device == inputDevice || (inputType == InputType.KB && mouse == ctx.action.lastTriggerControl.device ))
@@ -104,6 +109,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 		return false;
 	}
+
+	#region MOVEMENT
 
 	public void OnMovement(InputAction.CallbackContext ctx)
 	{	
@@ -127,6 +134,10 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		}
 	}
 
+	#endregion
+
+	#region ATTACK
+
 	public void OnAttack(InputAction.CallbackContext ctx)
 	{
 		if(!IsMyInput(ctx))
@@ -148,4 +159,23 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 			playerAttack.Shoot(Lib.GetMouseDirection(mouse, gameObject));
 		}
 	}
+
+	#endregion
+
+	#region ABILITIES
+
+	public void OnAbility1(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A1");
+	}
+	public void OnAbility2(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A2");
+	}
+	public void OnAbility3(InputAction.CallbackContext ctx)
+	{
+		Debug.Log("A3");
+	}
+
+	#endregion
 }
