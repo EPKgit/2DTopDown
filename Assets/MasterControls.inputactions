@@ -22,17 +22,17 @@
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "bindings": []
                 },
                 {
                     "name": "Ability1",
                     "id": "370f7f8f-fd2c-4fe7-8abf-9e30ac711c71",
-                    "expectedControlLayout": "Button",
+                    "expectedControlLayout": "",
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "bindings": []
                 },
                 {
@@ -42,7 +42,7 @@
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "bindings": []
                 },
                 {
@@ -52,7 +52,7 @@
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "bindings": []
                 }
             ],

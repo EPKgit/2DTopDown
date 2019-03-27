@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "AbilitySet", menuName = "Abilities/AbilitySet", order = 1)]
 public class AbilitySet : ScriptableObject
 {
-    List<Ability> abilities;
+	public Ability ability1;
+	public Ability ability2;
+	public Ability ability3;
+	public Ability attack;
 }

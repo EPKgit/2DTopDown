@@ -59,4 +59,40 @@ public static class Lib
 		Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
 		return worldSpacePosition - from.transform.position;
 	}
+
+	public static Vector2 GetInputDirection(Gamepad g, Mouse m, InputAction.CallbackContext ctx, InputType it, GameObject player, bool isLeftStick = false)
+	{
+		if(it == InputType.GP)
+		{
+			return isLeftStick ? g.leftStick.ReadValue() : g.rightStick.ReadValue();
+		}
+		else
+		{
+			return isLeftStick ? ctx.ReadValue<Vector2>() : (Vector2)Lib.GetMouseDirection(m, player);
+		}
+	}
+
+	public static Vector2 DefaultDirectionCheck(Vector2 dir)
+	{
+		if(dir.x == 0 && dir.y == 0)
+		{
+			dir = Vector2.right;
+		}
+		dir.Normalize();
+		return dir;
+	}
+
+	public static Vector2 DefaultDirectionCheck(Vector2 dir, Rigidbody2D rb)
+	{
+		if(dir.x == 0 && dir.y == 0)
+		{
+			dir = rb.velocity;
+			if(dir.x == 0 && dir.y == 0)
+			{
+				dir = Vector2.right;
+			}
+		}
+		dir.Normalize();
+		return dir;
+	}
 }

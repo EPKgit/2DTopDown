@@ -6,8 +6,13 @@ using UnityEngine;
 [System.Serializable]
 public class Stat
 {
-	//USE ME TO ACCESS CURRENT FINAL VALUE
-	//SHOULD BE KEPT UPDATED AS BONUSES ARE ADDED AND REMOVED
+	/// <summary>
+	/// Represents the current value of the stat, given the base value and all of the modifiers. This value
+	/// is kept updated as bonuses are added and removed.
+	/// </summary>
+	/// <value>
+	/// Use this value to access the updated current value. Returns the value of _value
+	/// </value>
     public float value
 	{
 		get
@@ -17,12 +22,30 @@ public class Stat
 	}
 	private float _value;
 
+	/// <summary>
+	/// The name of the stat that this represents
+	/// </summary>
 	public StatName name;
 
 	public delegate void StatChangeDelegate(float value);
+	/// <summary>
+	/// An event that is fired anytime the stat is changed, either through a new base value
+	/// or if a modifier is added or removed
+	/// </summary>
 	public event StatChangeDelegate statChangeEvent = delegate {};
 
+	/// <summary>
+	/// Our base value, is added to and multiplied by when we calculate our final value
+	/// </summary>
     private float baseValue;
+
+	/// <summary>
+	/// A marker for the currentID we're using, acts as a handle that's returned to callers
+	/// so they can keep track of the bonuses that they've added. Used to remove bonuses
+	/// to ensure that they remove the same bonus they added. 
+	/// </summary>
+	private int currentID = 0;
+
     private List<Tuple<float, int>> multiplicativeModifiers = new List<Tuple<float, int>>();
     private List<Tuple<float, int>> additiveModifiers = new List<Tuple<float, int>>();
 
@@ -39,6 +62,10 @@ public class Stat
 		if(DEBUGFLAGS.STATS) Debug.Log(name + " created with value:" + baseValue);
 	}
 
+	/// <summary>
+	/// Calculates the final value, adding all additiveModifiers, then adding our multiplicativeModifiers
+	/// multiplied by the baseValue. Also calls the statChangeEvent
+	/// </summary>
     private void UpdateCurrentValue()
     {
         float finalResult = baseValue;
@@ -48,7 +75,7 @@ public class Stat
         }
         foreach(Tuple<float, int> t in multiplicativeModifiers)
         {
-            finalResult *= t.Item1;
+            finalResult += t.Item1 * baseValue;
         }
         _value = finalResult;
 		statChangeEvent(_value);
@@ -60,34 +87,70 @@ public class Stat
         UpdateCurrentValue();
     }
 
-    public void AddAdditiveModifier(float f, int i) // float for the value, i for the ID of the effect, ID will get set by the statblock
+	int GetID()
+	{
+		return currentID++;
+	}
+
+	/// <summary>
+	/// Adds an additive modifier to the base value
+	/// </summary>
+	/// <param name="f">The bonus amount</param>
+	/// <returns>Returns the ID handle of the bonus added</returns>
+    public int AddAdditiveModifier(float f)
     {
-        additiveModifiers.Add(new Tuple<float, int>(f, i));
-        UpdateCurrentValue();
+		int ID = GetID();
+        additiveModifiers.Add(new Tuple<float, int>(f, ID));
+		UpdateCurrentValue();
+		return ID;
     }
 
-    public void AddMultiplicativeModifier(float f, int i)
+	/// <summary>
+	/// Adds a multipicative modifier to the base value
+	/// </summary>
+	/// <param name="f">The bonus amount</param>
+	/// <returns>Returns the ID handle of the bonus added</returns>
+    public int AddMultiplicativeModifier(float f)
     {
-        multiplicativeModifiers.Add(new Tuple<float, int>(f, i));
+		int ID = GetID();
+        multiplicativeModifiers.Add(new Tuple<float, int>(f, ID));
         UpdateCurrentValue();
+		return ID;
     }
     
+	/// <summary>
+	/// Removes a bonus by it's ID handle
+	/// </summary>
+	/// <param name="i">The ID of the bonus to remove</param>
     public void RemoveAdditiveModifier(int i)
     {
         additiveModifiers.RemoveAll( (t) => t.Item2 == i );
         UpdateCurrentValue();
     }
 
+	/// <summary>
+	/// Removes a bonus by it's ID handle
+	/// </summary>
+	/// <param name="i">The ID of the bonus to remove</param>
     public void RemoveMultiplicativeModifier(int i)
     {
         multiplicativeModifiers.RemoveAll( (t) => t.Item2 == i );
         UpdateCurrentValue();
     }
 
+	/// <summary>
+	/// Registers a method to get called when the stat is changed
+	/// </summary>
+	/// <param name="d">The method to invoke</param>
 	public void RegisterStatChangeCallback(StatChangeDelegate d)
 	{
 		statChangeEvent += d;
 	}
+
+	/// <summary>
+	/// Deregisters a method to get called when the stat is changed
+	/// </summary>
+	/// <param name="d">The method that was invoked</param>
 	public void UnregisterStatChangeCallback(StatChangeDelegate d)
 	{
 		statChangeEvent -= d;
