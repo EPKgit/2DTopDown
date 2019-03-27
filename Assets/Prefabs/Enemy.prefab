@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 0.075
+  speed: 1
 --- !u!114 &1430077455945688399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +115,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  blockAngle: 120
+  blockAngle: 100
+  SplodeEffect: {fileID: 6994869892048497080, guid: 4220ad67220fc4ee19b68f40101a34a4,
+    type: 3}
+  RedSplodeEffect: {fileID: 7237582445734271026, guid: 1038b373f60184bb9b0d7c5e8b353742,
+    type: 3}
 --- !u!1 &1430077456077003647
 GameObject:
   m_ObjectHideFlags: 0
