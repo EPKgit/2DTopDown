@@ -22,6 +22,18 @@ public static class Lib
 		}
 	}
 
+	public static Color GetColorByMenuState(PlayerStatus ps)
+	{
+		switch(ps)
+		{
+			case PlayerStatus.Joined:
+				return Color.red;
+			case PlayerStatus.Ready:
+				return Color.green;
+		}
+		return Color.black;
+	}
+
 	public static T FindInHierarchy<T>(GameObject start)
 	{
 		GameObject top = start;

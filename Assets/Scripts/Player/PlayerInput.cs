@@ -152,14 +152,26 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	public void OnAbility1(InputAction.CallbackContext ctx)
 	{
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
 		playerAbilities.Ability1(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 	public void OnAbility2(InputAction.CallbackContext ctx)
 	{
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
 		playerAbilities.Ability2(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 	public void OnAbility3(InputAction.CallbackContext ctx)
 	{
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
 		playerAbilities.Ability3(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
 	}
 

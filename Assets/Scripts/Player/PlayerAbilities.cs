@@ -26,6 +26,17 @@ public class PlayerAbilities : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		col = transform.Find("Colliders").GetComponent<CircleCollider2D>();
 		stats = GetComponent<StatBlock>();
+		currentlyTicking = new List<Ability>();
+	}
+
+	void Start()
+	{
+		Initialize(abilitySet);
+	}
+
+	public void Initialize(AbilitySet _as)
+	{
+		abilitySet = _as;
 		attack = ScriptableObject.Instantiate(abilitySet.attack);
 		ability1 = ScriptableObject.Instantiate(abilitySet.ability1);
 		ability2 = ScriptableObject.Instantiate(abilitySet.ability2);
@@ -34,7 +45,6 @@ public class PlayerAbilities : MonoBehaviour
 		ability1.Initialize(this);
 		ability2.Initialize(this);
 		ability3.Initialize(this);
-		currentlyTicking = new List<Ability>();
 	}
 
 	public List<string> GetCurrentlyTickingAbilities()
