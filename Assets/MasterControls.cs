@@ -30,6 +30,7 @@ public class MasterControls : InputActionAssetReference
         m_Menu_Join = m_Menu.GetAction("Join");
         m_Menu_Back = m_Menu.GetAction("Back");
         m_Menu_Continue = m_Menu.GetAction("Continue");
+        m_Menu_Select = m_Menu.GetAction("Select");
         m_Initialized = true;
     }
     private void Uninitialize()
@@ -52,6 +53,7 @@ public class MasterControls : InputActionAssetReference
         m_Menu_Join = null;
         m_Menu_Back = null;
         m_Menu_Continue = null;
+        m_Menu_Select = null;
         m_Initialized = false;
     }
     public void SetAsset(InputActionAsset newAsset)
@@ -146,6 +148,7 @@ public class MasterControls : InputActionAssetReference
     private InputAction m_Menu_Join;
     private InputAction m_Menu_Back;
     private InputAction m_Menu_Continue;
+    private InputAction m_Menu_Select;
     public struct MenuActions
     {
         private MasterControls m_Wrapper;
@@ -153,6 +156,7 @@ public class MasterControls : InputActionAssetReference
         public InputAction @Join { get { return m_Wrapper.m_Menu_Join; } }
         public InputAction @Back { get { return m_Wrapper.m_Menu_Back; } }
         public InputAction @Continue { get { return m_Wrapper.m_Menu_Continue; } }
+        public InputAction @Select { get { return m_Wrapper.m_Menu_Select; } }
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -172,6 +176,9 @@ public class MasterControls : InputActionAssetReference
                 Continue.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
                 Continue.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
                 Continue.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnContinue;
+                Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                Select.cancelled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,6 +192,9 @@ public class MasterControls : InputActionAssetReference
                 Continue.started += instance.OnContinue;
                 Continue.performed += instance.OnContinue;
                 Continue.cancelled += instance.OnContinue;
+                Select.started += instance.OnSelect;
+                Select.performed += instance.OnSelect;
+                Select.cancelled += instance.OnSelect;
             }
         }
     }
@@ -210,4 +220,5 @@ public interface IMenuActions
     void OnJoin(InputAction.CallbackContext context);
     void OnBack(InputAction.CallbackContext context);
     void OnContinue(InputAction.CallbackContext context);
+    void OnSelect(InputAction.CallbackContext context);
 }
