@@ -9,20 +9,20 @@ public class Bullet : MonoBehaviour
 	{
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("collision");
 		Lib.FindInHierarchy<IDamagable>(collision.otherCollider.gameObject)?.Damage(1, gameObject);
-    BulletEffect();
+    BulletEffect(collision.contacts[0].point);
 		Destroy(gameObject);
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");
 		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, gameObject);
-    BulletEffect();
+    BulletEffect(transform.position);
     Destroy(gameObject);
 	}
 
-  void BulletEffect() {
+  void BulletEffect(Vector3 position) {
     Quaternion rot = Quaternion.LookRotation(-GetComponent<Rigidbody2D>().velocity);
-    GameObject effect = Instantiate(bulletEffect, transform.position, rot);
+    GameObject effect = Instantiate(bulletEffect, position, rot);
 		Destroy(effect, 1f);
   }
 }
