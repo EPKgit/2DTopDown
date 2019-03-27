@@ -4708,7 +4708,7 @@ PrefabInstance:
     - target: {fileID: 6994869892048497080, guid: 4220ad67220fc4ee19b68f40101a34a4,
         type: 3}
       propertyPath: m_Name
-      value: redSplode
+      value: DamageSplode
       objectReference: {fileID: 0}
     - target: {fileID: 6994869892048497087, guid: 4220ad67220fc4ee19b68f40101a34a4,
         type: 3}
@@ -4774,6 +4774,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528566926089608087, guid: 4220ad67220fc4ee19b68f40101a34a4,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4220ad67220fc4ee19b68f40101a34a4, type: 3}
