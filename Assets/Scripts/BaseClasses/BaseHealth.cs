@@ -25,17 +25,29 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	void OnEnable()
 	{
 		stats?.GetStat(StatName.Toughness)?.RegisterStatChangeCallback(UpdateMaxHealth);
+		stats?.RegisterInitializationCallback(UpdateMaxHealth);
 	}
 
 	void OnDisable()
 	{
 		stats?.GetStat(StatName.Toughness)?.UnregisterStatChangeCallback(UpdateMaxHealth);	
+		stats?.DeregisterInitializationCallback(UpdateMaxHealth);
 	}
 
 	public void UpdateMaxHealth(float value)
 	{
 		currentHealth = currentHealth / maxHealth * value;
 		maxHealth = value;
+	}
+
+	public void UpdateMaxHealth(StatBlock s)
+	{
+		float value = s.GetValue(StatName.Toughness);
+		if(value == -1)
+		{
+			return;
+		}
+		UpdateMaxHealth(value);
 	}
 
 	public void Damage(float delta, GameObject s)

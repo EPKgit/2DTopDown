@@ -4,8 +4,12 @@ using UnityEngine;
 
 public enum StatName { Strength, Agility, Toughness }
 
+public delegate void StatBlockInitializationDelegate(StatBlock s);
+
 public class StatBlock : MonoBehaviour
 {	
+	public event StatBlockInitializationDelegate initializedEvent = delegate { };
+
 	/// <summary>
 	/// List of structs that let us set the values of the StatBlock in the inspector
 	/// </summary>
@@ -13,31 +17,32 @@ public class StatBlock : MonoBehaviour
 
 	private Dictionary<StatName, Stat> stats;
 	
+	#region MONOBEHAVIOUR CALLBACKS
+
 	void OnValidate()
 	{
-		stats = new Dictionary<StatName, Stat>();
-		for(int a = 0; a < inspectorValues.Count; ++a)
-		{
-			if(!HasStat(inspectorValues[a].name))
-			{
-				stats.Add(inspectorValues[a].name, new Stat(inspectorValues[a]));
-			}
-			
-		}
+		Initialize(inspectorValues);
 	}
 
 	void Awake()
 	{
+		Initialize(inspectorValues);
+	}
+
+	#endregion
+
+	public void Initialize(List<StatInspectorValue> statList)
+	{
 		stats = new Dictionary<StatName, Stat>();
-		for(int a = 0; a < inspectorValues.Count; ++a)
+		for(int a = 0; a < statList.Count; ++a)
 		{
-			if(HasStat(inspectorValues[a].name))
+			if(HasStat(statList[a].name))
 			{
 				throw new System.InvalidOperationException("StatBlock incorrectly initialized with duplicate stats on " + gameObject.name);
 			}
-			stats.Add(inspectorValues[a].name, new Stat(inspectorValues[a]));
+			stats.Add(statList[a].name, new Stat(statList[a]));
 		}
-		
+		initializedEvent(this);
 	}
 	
 	/// <summary>
@@ -72,5 +77,15 @@ public class StatBlock : MonoBehaviour
 		Stat temp = null;
 		stats.TryGetValue(name, out temp);
 		return temp;
+	}
+
+	public void RegisterInitializationCallback(StatBlockInitializationDelegate d)
+	{
+		initializedEvent += d;
+	}
+
+	public void DeregisterInitializationCallback(StatBlockInitializationDelegate d)
+	{
+		initializedEvent -= d;
 	}
 }
