@@ -12,4 +12,5 @@ public class DEBUGFLAGS
 	public static bool ENEMYHEALTH = false;
 	public static bool STATS = false;
 	public static bool ABILITY = false;
+	public static bool POOLMANAGER = true;
 }
