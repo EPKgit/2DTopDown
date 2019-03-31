@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PlayerGameplay")]
+[CreateAssetMenu(menuName = "PlayerGameplay/Class")]
 public class PlayerClass : ScriptableObject
 {
 	public new string name;

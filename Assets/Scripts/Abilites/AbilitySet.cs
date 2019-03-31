@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PlayerGameplay")]
+[CreateAssetMenu(menuName = "PlayerGameplay/AbilitySet")]
 public class AbilitySet : ScriptableObject
 {
 	public new string name;
