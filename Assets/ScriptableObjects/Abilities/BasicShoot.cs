@@ -19,7 +19,7 @@ public class BasicShoot : Ability
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
 		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
-		temp.GetComponent<Bullet>().Setup(playerAbilities.transform.position, inputDirection);
+		temp.GetComponent<Bullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject);
 		temp.GetComponent<Poolable>().Reset();
 	}
 }

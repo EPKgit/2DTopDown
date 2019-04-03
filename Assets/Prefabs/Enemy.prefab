@@ -42,8 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1430077455945688394}
   - component: {fileID: 1430077455945688397}
-  - component: {fileID: 1430077455945688396}
   - component: {fileID: 1430077455945688399}
+  - component: {fileID: 2783044493610525030}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -88,20 +88,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1430077455945688396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430077455945688398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32c77d79bf53c9c429c192a259a29c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnSpeed: 0.075
-  speed: 1
 --- !u!114 &1430077455945688399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +106,20 @@ MonoBehaviour:
     type: 3}
   RedSplodeEffect: {fileID: 7237582445734271026, guid: 1038b373f60184bb9b0d7c5e8b353742,
     type: 3}
+--- !u!114 &2783044493610525030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430077455945688398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2615072fd49a5bb4c8d48ef3b9134129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  turnSpeed: 0.05
 --- !u!1 &1430077456077003647
 GameObject:
   m_ObjectHideFlags: 0

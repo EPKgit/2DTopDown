@@ -41,10 +41,10 @@ public static class Lib
 		{
 			top = top.transform.parent.gameObject;
 		}
-		return Lib.RecursiveHelper<T>(top);
+		return Lib.ComponentRecursiveHelper<T>(top);
 	}
 
-	static T RecursiveHelper<T>(GameObject check)
+	static T ComponentRecursiveHelper<T>(GameObject check)
 	{
 		if(DEBUGFLAGS.LIB) Debug.Log("checking " + check.name);
 		T temp = check.GetComponent<T>();
@@ -55,13 +55,42 @@ public static class Lib
 		}
 		foreach(Transform t in check.transform)
 		{
-			temp = Lib.RecursiveHelper<T>(t.gameObject);
+			temp = Lib.ComponentRecursiveHelper<T>(t.gameObject);
 			if(temp != null)
 			{
 				return temp;
 			}
 		}
 		return default(T);
+	}
+
+	public static bool HasTagInHierarchy(GameObject start, string tag)
+	{
+		GameObject top = start;
+		while(top.transform.parent != null)
+		{
+			top = top.transform.parent.gameObject;
+		}
+		if(DEBUGFLAGS.LIB) Debug.Log("Starting search on " + start.name + " for " + tag);
+		return Lib.TagRecursiveHelper(top, tag);
+	}
+
+	static bool TagRecursiveHelper(GameObject toCheck, string tag)
+	{
+		bool temp = toCheck.CompareTag(tag);
+		if(temp)
+		{
+			return temp;
+		}
+		foreach(Transform t in toCheck.transform)
+		{
+			temp = Lib.TagRecursiveHelper(t.gameObject, tag);
+			if(temp)
+			{
+				return temp;
+			}
+		}
+		return false;
 	}
 
 	public static Vector3 GetMouseDirection(Mouse m, GameObject from)

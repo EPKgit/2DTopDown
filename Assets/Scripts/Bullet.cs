@@ -9,6 +9,7 @@ public class Bullet : Poolable
 	private float timeLeft;
 	private CircleCollider2D collider;
 	private Rigidbody2D rb;
+	private GameObject player;
 
 	public override void PoolInit(GameObject g)
 	{
@@ -23,10 +24,11 @@ public class Bullet : Poolable
 		GetComponent<TrailRenderer>().Clear();
 	}
 
-	public void Setup(Vector3 pos, Vector3 direction)
+	public void Setup(Vector3 pos, Vector3 direction, GameObject p)
 	{
 		transform.position = pos;
 		rb.velocity = direction;
+		player = p;
 	}
 
 	void Update()
@@ -45,23 +47,23 @@ public class Bullet : Poolable
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if(!collision.otherCollider.gameObject.CompareTag("Enemy"))
+		if(!Lib.HasTagInHierarchy(collision.otherCollider.gameObject, "Enemy"))
 		{
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("collision");
-		Lib.FindInHierarchy<IDamagable>(collision.otherCollider.gameObject)?.Damage(1, gameObject);
+		Lib.FindInHierarchy<IDamagable>(collision.otherCollider.gameObject)?.Damage(1, player);
 		BulletEffect(collision.contacts[0].point);
 		DestroySelf();
 	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if(!col.gameObject.CompareTag("Enemy"))
+		if(!Lib.HasTagInHierarchy(col.gameObject, "Enemy"))
 		{
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");
-		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, gameObject);
+		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, player);
     	BulletEffect(transform.position);
    		DestroySelf();
 	}

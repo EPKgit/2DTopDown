@@ -9,7 +9,7 @@ using UnityEngine.Experimental.Input;
 public class MenuManager : Singleton<MenuManager>, IMenuActions
 {
     public MasterControls controls;
-	public int maxPlayers = 4;
+	public static int maxPlayers = 4;
 
 	public GameObject playerPrefab;
 	public GameObject playerUIPrefab;
@@ -103,7 +103,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	/// <param name="ctx">Callback Context for the input event</param>
 	public void OnJoin(InputAction.CallbackContext ctx)
 	{
-		if(!PlayerInMenu(ctx.action.lastTriggerControl.device))
+		if(!PlayerInMenu(ctx.action.lastTriggerControl.device) || playerStatuses.Count >= maxPlayers)
 		{
 			return;
 		}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(StatBlock))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
 	public float movementSpeed;
@@ -48,6 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
 	public void UpdateSpeed(StatBlock s)
 	{
-		movementSpeed = (stats?.HasStat(StatName.Agility) ?? false) ? stats.GetValue(StatName.Agility) : movementSpeed;
+		movementSpeed = stats?.GetStat(StatName.Agility)?.value ?? movementSpeed;
 	}
 }

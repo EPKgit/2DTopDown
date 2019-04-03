@@ -2,33 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : MonoBehaviour
+[RequireComponent(typeof(BaseHealth), typeof(Rigidbody2D))]
+public abstract class BaseEnemy : MonoBehaviour
 {
-	public float turnSpeed = 0.4f;
-  public float speed = 1f;
+  	public float speed = 1f;
 
-	private GameObject chosenPlayer;
-	private Rigidbody2D rb;
+	/// <summary>
+	/// The player that the AI will use to plan its pathing, up to the AI
+	/// to use this value
+	/// </summary>
+	protected GameObject chosenPlayer;
 
-	void Awake()
+	/// <summary>
+	/// A sorted set of all aggrodata that the enemy has recieved from damage events. 
+	/// </summary>
+	protected PriorityQueue<AggroData> aggro;
+	
+	protected Rigidbody2D rb;
+	protected StatBlock stats;
+	protected BaseHealth hp;
+
+	protected virtual void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		stats = GetComponent<StatBlock>();
+		hp = GetComponent<BaseHealth>();
+		aggro = new PriorityQueue<AggroData>(MenuManager.maxPlayers, new MaxAggroComparator());
+		
+		hp.postDamageEvent += AddAggroEvent;
 	}
 
-	void Start()
+	protected virtual void Start()
 	{
-		chosenPlayer = PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;
+		UpdateChosenPlayer();
 		if(chosenPlayer == null)
 		{
 			Debug.Log("Enemy cannot find target! " + gameObject.name);
 			this.enabled = false;
 		}
 	}
-    void Update()
+
+	protected virtual void AddAggroEvent(HealthChangeNotificationData hcnd)
 	{
-		Vector2 dir = (chosenPlayer.transform.position - transform.position).normalized;
-		rb.velocity = dir * speed;
-		transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(Mathf.Rad2Deg * -Mathf.Atan2(dir.x, dir.y), Vector3.forward), turnSpeed);
-		//transform.rota
+		AggroData temp = aggro.GetValue( (t) => t.source == hcnd.source);
+		if(temp == null)
+		{
+			aggro.Push(new AggroData(hcnd));
+			return;
+		}
+		temp.value += hcnd.value * hcnd.aggroPercentage;
+	}
+
+	protected virtual void UpdateChosenPlayer()
+	{
+		chosenPlayer = aggro?.Peek()?.source ?? PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;;
+	}
+
+	public AggroData[] GetAggroDataArray()
+	{
+		return aggro.ToArray();
 	}
 }

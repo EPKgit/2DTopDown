@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatName { Strength, Agility, Toughness }
-
-public delegate void StatBlockInitializationDelegate(StatBlock s);
+public enum StatName { Strength, Agility, Toughness, AggroPercentage }
 
 public class StatBlock : MonoBehaviour
 {	
+	public delegate void StatBlockInitializationDelegate(StatBlock s);
 	public event StatBlockInitializationDelegate initializedEvent = delegate { };
 
 	/// <summary>
