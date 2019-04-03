@@ -16,7 +16,7 @@ public class AggroData : IEquatable<AggroData>
 
 	public AggroData(HealthChangeNotificationData hcnd)
 	{
-		source = hcnd.source;
+		source = hcnd.overallSource;
 		value = hcnd.value * hcnd.aggroPercentage;
 	}
 

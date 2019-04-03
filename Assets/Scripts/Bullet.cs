@@ -52,7 +52,7 @@ public class Bullet : Poolable
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("collision");
-		Lib.FindInHierarchy<IDamagable>(collision.otherCollider.gameObject)?.Damage(1, player);
+		Lib.FindInHierarchy<IDamagable>(collision.otherCollider.gameObject)?.Damage(1, gameObject, player);
 		BulletEffect(collision.contacts[0].point);
 		DestroySelf();
 	}
@@ -63,7 +63,7 @@ public class Bullet : Poolable
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");
-		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, player);
+		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, gameObject, player);
     	BulletEffect(transform.position);
    		DestroySelf();
 	}

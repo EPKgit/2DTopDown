@@ -10,12 +10,12 @@ public class BaseEnemyInspector : Editor
 	private static bool aggroFoldout = true;
 
 	private BaseEnemy baseEnemy;
+	private AggroData[] arr;
 
 	void OnEnable()
 	{
 		baseEnemy = target as BaseEnemy;
-	}
-	
+	}	
 
 	public override void OnInspectorGUI()
 	{
@@ -24,12 +24,22 @@ public class BaseEnemyInspector : Editor
 		{
 			return;
 		}
+		if(GUILayout.Button("SetupEvent"))
+		{
+			baseEnemy.gameObject.GetComponent<BaseHealth>().postDamageEvent += UpdateUI;
+		}
 		if(aggroFoldout = EditorGUILayout.Foldout(aggroFoldout, "Aggro"))
 		{
-			foreach(AggroData ad in baseEnemy.GetAggroDataArray())
+			arr = baseEnemy.GetAggroDataArray();
+			foreach(AggroData ad in arr)
 			{
-				EditorGUILayout.LabelField(ad.source.name + " " + ad.value);
+				EditorGUILayout.LabelField(string.Format("{0}:{1}", ad.source?.name ?? "NULL", ad.value));
 			}
 		}
+	}
+
+	public void UpdateUI(HealthChangeNotificationData hcnd)
+	{
+		EditorUtility.SetDirty(baseEnemy);
 	}
 }

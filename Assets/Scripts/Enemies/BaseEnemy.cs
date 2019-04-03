@@ -37,25 +37,30 @@ public abstract class BaseEnemy : MonoBehaviour
 		UpdateChosenPlayer();
 		if(chosenPlayer == null)
 		{
-			Debug.Log("Enemy cannot find target! " + gameObject.name);
+			Debug.LogError("Enemy cannot find target! " + gameObject.name);
 			this.enabled = false;
 		}
 	}
 
 	protected virtual void AddAggroEvent(HealthChangeNotificationData hcnd)
 	{
-		AggroData temp = aggro.GetValue( (t) => t.source == hcnd.source);
+		AggroData temp = aggro.GetValue( (t) => t.source == hcnd.overallSource);
 		if(temp == null)
 		{
+			if(DEBUGFLAGS.AGGRO) Debug.Log("new aggro");
 			aggro.Push(new AggroData(hcnd));
+			UpdateChosenPlayer();
 			return;
 		}
+		if(DEBUGFLAGS.AGGRO) Debug.Log(string.Format("update aggro from {0} to {1}", temp.value, temp.value + hcnd.value * hcnd.aggroPercentage));
 		temp.value += hcnd.value * hcnd.aggroPercentage;
+		UpdateChosenPlayer();
 	}
 
 	protected virtual void UpdateChosenPlayer()
 	{
-		chosenPlayer = aggro?.Peek()?.source ?? PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;;
+		chosenPlayer = aggro?.Peek()?.source ?? PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;
+		if(DEBUGFLAGS.AGGRO) Debug.Log(chosenPlayer.name);
 	}
 
 	public AggroData[] GetAggroDataArray()

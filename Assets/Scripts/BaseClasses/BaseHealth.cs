@@ -50,10 +50,10 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		UpdateMaxHealth(value);
 	}
 
-	public void Damage(float delta, GameObject s)
+	public void Damage(float delta, GameObject localSource, GameObject overallSource = null)
 	{
 		if(DEBUGFLAGS.HEALTH) Debug.Log("taking damage");
-		HealthChangeEventData data = new HealthChangeEventData(s, gameObject, delta);
+		HealthChangeEventData data = new HealthChangeEventData(overallSource, localSource, gameObject, delta);
 		if(DEBUGFLAGS.HEALTH) Debug.Log("pre damage");
 		preDamageEvent(data);
 		if(data.cancelled)
@@ -63,8 +63,8 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		}
 		if(DEBUGFLAGS.HEALTH) Debug.Log("not cancelled");
 		currentHealth -= data.delta;
-		float aggroValue = s.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
-		HealthChangeNotificationData notifData = new HealthChangeNotificationData(s, data.delta, aggroValue);
+		float aggroValue = overallSource?.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
+		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, data.delta, aggroValue);
 		postDamageEvent(notifData);
 		notifData.value *= -1;
 		healthChangeEvent(notifData);
@@ -75,18 +75,18 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		}
 	}
 
-	public void Heal(float delta, GameObject s)
+	public void Heal(float delta, GameObject localSource, GameObject overallSource = null)
 	{
 		if(DEBUGFLAGS.HEALTH) Debug.Log("healing");
-		HealthChangeEventData data = new HealthChangeEventData(s, gameObject, delta);
+		HealthChangeEventData data = new HealthChangeEventData(overallSource, localSource, gameObject, delta);
 		preHealEvent(data);
 		if(data.cancelled)
 		{
 			return;
 		}
 		currentHealth += data.delta;
-		float aggroValue = s.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
-		HealthChangeNotificationData notifData = new HealthChangeNotificationData(s, data.delta, aggroValue);
+		float aggroValue = overallSource?.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
+		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, delta, aggroValue);
 		postHealEvent(notifData);
 		healthChangeEvent(notifData);
 		if(currentHealth > maxHealth)
@@ -112,13 +112,22 @@ public delegate void HealthChangeNotificationDelegate(HealthChangeNotificationDa
 
 public class HealthChangeEventData
 {
-	public GameObject source;
+	public GameObject overallSource;
+	public GameObject localSource;
 	public GameObject target;
 	public float delta;
 	public bool cancelled;
-	public HealthChangeEventData(GameObject s, GameObject t, float d)
+	/// <summary>
+	/// Constructor for a HealthChangeEventData. Represents one instance of taking or healing damage.
+	/// </summary>
+	/// <param name="o">The overall source</param>
+	/// <param name="l">The local source</param>
+	/// <param name="t">The targeted GameObject</param>
+	/// <param name="d">The damage or healing delta</param>
+	public HealthChangeEventData(GameObject o, GameObject l, GameObject t, float d)
 	{
-		source = s;
+		overallSource = o;
+		localSource = l;
 		target = t;
 		delta = d;
 		cancelled = false;
@@ -127,13 +136,22 @@ public class HealthChangeEventData
 
 public class HealthChangeNotificationData
 {
-	public GameObject source;
+	public GameObject overallSource;
+	public GameObject localSource;
 	public float value;
 	public float aggroPercentage;
 
-	public HealthChangeNotificationData(GameObject s, float v, float a = 1)
+	/// <summary>
+	/// Constructor for a HealthChangeNotificaitonData. Represent on instance of taking or healing damage.
+	/// </summary>
+	/// <param name="o">The overall source</param>
+	/// <param name="l">The local source</param>
+	/// <param name="v">The amount of healing or damage done. Will be negative for damage, positive for healing.</param>
+	/// <param name="a">The aggropercentage, defaulted to 1</param>
+	public HealthChangeNotificationData(GameObject o, GameObject l, float v, float a = 1)
 	{
-		source = s;
+		overallSource = o;
+		localSource = l;
 		value = v;
 		aggroPercentage = a;
 	}

@@ -19,15 +19,15 @@ public class EnemyHealth : BaseHealth
 
 	void CheckIfBlocked(HealthChangeEventData hced)
 	{
-		float angle = Vector3.Angle(transform.up, hced.source.transform.position - hced.target.transform.position);
+		float angle = Vector3.Angle(transform.up, hced.localSource.transform.position - hced.target.transform.position);
 		if(DEBUGFLAGS.ENEMYHEALTH) Debug.Log(angle);
 		if(angle < blockAngle)
 		{
 			if(DEBUGFLAGS.ENEMYHEALTH) Debug.Log("cancelling");
 			hced.cancelled = true;
-			ShieldClankEffect(hced.source);
+			ShieldClankEffect(hced.localSource);
 		} else {
-			DamageEffect(hced.source);
+			DamageEffect(hced.localSource);
     	}
 	}
 
