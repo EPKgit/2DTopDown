@@ -8,13 +8,18 @@ public class BasicShoot : Ability
 	public GameObject bulletPrefab;
 	public float moveSpeed;
 
+	public override void Initialize(PlayerAbilities pa)
+	{
+		PoolManager.instance.AddPoolSize(bulletPrefab, 20, true);
+		base.Initialize(pa);
+	}
+
     protected override void UseAbility(InputAction.CallbackContext ctx, Vector2 inputDirection)
 	{
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
-		GameObject temp = Instantiate(bulletPrefab, playerAbilities.gameObject.transform.position, Quaternion.identity);
-		Physics2D.IgnoreCollision(playerAbilities.col, temp.GetComponent<CircleCollider2D>());
-		Destroy(temp, 6f);
-		temp.GetComponent<Rigidbody2D>().velocity = inputDirection;
+		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
+		temp.GetComponent<Bullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject);
+		temp.GetComponent<Poolable>().Reset();
 	}
 }

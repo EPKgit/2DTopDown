@@ -3,7 +3,11 @@ guid: 61d0423f0f2b30d45bd2a0e76dd1b10d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SplodeEffect: {fileID: 6994869892048497080, guid: 4220ad67220fc4ee19b68f40101a34a4,
+      type: 3}
+  - RedSplodeEffect: {fileID: 7237582445734271026, guid: 1038b373f60184bb9b0d7c5e8b353742,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

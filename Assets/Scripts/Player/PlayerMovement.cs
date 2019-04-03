@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(StatBlock))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
 	public float movementSpeed;
@@ -20,13 +20,15 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnEnable()
 	{
-		movementSpeed = (stats?.HasStat(StatName.Agility) ?? false) ? stats.GetValue(StatName.Agility) : movementSpeed;
+		UpdateSpeed(stats);
 		stats?.GetStat(StatName.Agility)?.RegisterStatChangeCallback(UpdateSpeed);
+		stats?.RegisterInitializationCallback(UpdateSpeed);
 	}
 
 	void OnDisable()
 	{
 		stats?.GetStat(StatName.Agility)?.UnregisterStatChangeCallback(UpdateSpeed);
+		stats?.DeregisterInitializationCallback(UpdateSpeed);
 	}
 
 	void Update()
@@ -42,5 +44,10 @@ public class PlayerMovement : MonoBehaviour
 	public void UpdateSpeed(float f)
 	{
 		movementSpeed = f;
+	}
+
+	public void UpdateSpeed(StatBlock s)
+	{
+		movementSpeed = stats?.GetStat(StatName.Agility)?.value ?? movementSpeed;
 	}
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyHealth : BaseHealth
 {
 	public float blockAngle;
-  public GameObject SplodeEffect;
-  public GameObject RedSplodeEffect;
+	public GameObject SplodeEffect;
+	public GameObject RedSplodeEffect;
 
 	void OnEnable()
 	{
@@ -14,7 +14,7 @@ public class EnemyHealth : BaseHealth
 	}
 	void OnDisable()
 	{
-		preDamageEvent += CheckIfBlocked;
+		preDamageEvent -= CheckIfBlocked;
 	}
 
 	void CheckIfBlocked(HealthChangeEventData hced)
@@ -25,26 +25,26 @@ public class EnemyHealth : BaseHealth
 		{
 			if(DEBUGFLAGS.ENEMYHEALTH) Debug.Log("cancelling");
 			hced.cancelled = true;
-      ShieldClankEffect(hced.source);
+			ShieldClankEffect(hced.source);
 		} else {
-      DamageEffect(hced.source);
-    }
+			DamageEffect(hced.source);
+    	}
 	}
 
   protected override void Die()
 	{
 		Destroy(gameObject);
-    DieEffect();
+    	DieEffect();
 	}
 
   private void ShieldClankEffect(GameObject source) {
 		GameObject splode = Instantiate(SplodeEffect, source.transform.position, Quaternion.identity);
-    splode.transform.localScale *= 0.5f;
+    	splode.transform.localScale *= 0.5f;
   }
 
   private void DamageEffect(GameObject source) {
 		GameObject splode = Instantiate(RedSplodeEffect, source.transform.position, Quaternion.identity);
-    splode.transform.localScale *= 0.5f;
+    	splode.transform.localScale *= 0.5f;
   }
 
   private void DieEffect() {
