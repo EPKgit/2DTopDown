@@ -7,14 +7,14 @@ public class Bullet : Poolable
 	public GameObject bulletEffect;
 
 	private float timeLeft;
-	private CircleCollider2D collider;
+	private CircleCollider2D col;
 	private Rigidbody2D rb;
 	private GameObject player;
 
 	public override void PoolInit(GameObject g)
 	{
 		base.PoolInit(g);
-		collider = GetComponent<CircleCollider2D>();
+		col = GetComponent<CircleCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 	}
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: ???????
   ability1: {fileID: 11400000, guid: 2a404e2d8e11dd046980e35721a154af, type: 2}
-  ability2: {fileID: 11400000, guid: c763160e0c7ac404e95aa4143efd68e9, type: 2}
-  ability3: {fileID: 11400000, guid: 8fda7a765a4f4ab41ab2663cdba6d385, type: 2}
+  ability2: {fileID: 11400000, guid: 7dcc1f6f8b57ecf45b70a8f571a88f53, type: 2}
+  ability3: {fileID: 11400000, guid: 7dcc1f6f8b57ecf45b70a8f571a88f53, type: 2}
   attack: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}

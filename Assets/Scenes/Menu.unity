@@ -645,15 +645,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls:
     m_Asset: {fileID: 11400000, guid: 88744b43d48487d44b5797c7f31beedd, type: 3}
-  maxPlayers: 4
   playerPrefab: {fileID: 6736965120114129077, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
     type: 3}
   playerUIPrefab: {fileID: 8440621040965712000, guid: 82ed5d77d5a40ca44821f36189638e59,
     type: 3}
-  abilitySets:
-  - {fileID: 11400000, guid: 421eb861c29982d419fb214ab16abb8b, type: 2}
-  - {fileID: 11400000, guid: 1a0db484c7e97404ba02a5b8fc6425ea, type: 2}
-  - {fileID: 11400000, guid: b39bd44a5e30c89468178cfacd9c960f, type: 2}
+  classes:
+  - {fileID: 11400000, guid: a7d901c049ac977468fe1778592b7b5f, type: 2}
+  - {fileID: 11400000, guid: b7aa632376cbc274a8b3029bb47deefd, type: 2}
+  - {fileID: 11400000, guid: dd21c39b03a2a5c40abe64929c5782b8, type: 2}
 --- !u!4 &1673561502
 Transform:
   m_ObjectHideFlags: 0

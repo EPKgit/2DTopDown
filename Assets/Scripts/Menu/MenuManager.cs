@@ -14,11 +14,11 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	public GameObject playerPrefab;
 	public GameObject playerUIPrefab;
 
-	public List<AbilitySet> abilitySets;
+	public List<PlayerClass> classes;
 	public List<PlayerMenuState> playerStatuses;
 
 
-	private List<PlayerUI> UIObjects;
+	private List<PlayerMenuUI> UIObjects;
 	private Transform layoutGroup;
 	private bool inMenu;
 
@@ -40,11 +40,11 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		controls.Menu.SetCallbacks(this);
 		playerStatuses = new List<PlayerMenuState>();
 		layoutGroup = GameObject.Find("Canvas").transform.Find("PlayerDisplayLayoutGroup");
-		UIObjects = new List<PlayerUI>();
+		UIObjects = new List<PlayerMenuUI>();
 		for(int x = 0; x < maxPlayers; ++x)
 		{
 			
-			UIObjects.Add(Instantiate(playerUIPrefab, Vector3.zero, Quaternion.identity, layoutGroup).GetComponent<PlayerUI>());
+			UIObjects.Add(Instantiate(playerUIPrefab, Vector3.zero, Quaternion.identity, layoutGroup).GetComponent<PlayerMenuUI>());
 		}
 		inMenu = true;
 		UpdateUI();
@@ -61,7 +61,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		int x = 0;
 		foreach(PlayerMenuState pms in playerStatuses)
 		{
-			UIObjects[x].UpdateUI(x + 1, pms, abilitySets[pms.selectionIndex].name);			
+			UIObjects[x].UpdateUI(x + 1, pms, classes[pms.selectionIndex].name);			
 			++x;
 		}
 		for(; x < maxPlayers; ++x)
@@ -180,7 +180,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		if(index != -1)
 		{
 			playerStatuses[index].selectionIndex += (int)val;
-			playerStatuses[index].selectionIndex = (playerStatuses[index].selectionIndex + abilitySets.Count) % abilitySets.Count;
+			playerStatuses[index].selectionIndex = (playerStatuses[index].selectionIndex + classes.Count) % classes.Count;
 			UpdateUI();
 		}
 	}
@@ -214,16 +214,19 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		GameObject temp;
 		PlayerInput pi;
 		PlayerAbilities pa;
+		StatBlock stats;
 		foreach(PlayerMenuState pms in playerStatuses)
 		{
 			pms.status = PlayerStatus.InGame;
 			temp = Instantiate(playerPrefab, new Vector3(++x, 0, 0), Quaternion.identity);
 			pi = temp.GetComponent<PlayerInput>();
 			pa = temp.GetComponent<PlayerAbilities>();
+			stats = temp.GetComponent<StatBlock>();
 			pi.inputDevice = pms.device;
 			pi.playerID = x;
 			pi.Initialize();
-			pa.Initialize(abilitySets[pms.selectionIndex]);
+			pa.Initialize(classes[pms.selectionIndex].abilities);
+			stats.Initialize(classes[pms.selectionIndex].stats);
 		}
 	}
 	#endregion

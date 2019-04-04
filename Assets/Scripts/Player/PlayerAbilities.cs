@@ -5,6 +5,9 @@ using UnityEngine.Experimental.Input;
 
 public class PlayerAbilities : MonoBehaviour
 {
+	public delegate void AbilityInitializationDelegate(Ability a1, Ability a2, Ability a3, Ability attack);
+	public event AbilityInitializationDelegate initializedEvent = delegate { };
+
     public AbilitySet abilitySet;
 
 	[HideInInspector]
@@ -45,6 +48,7 @@ public class PlayerAbilities : MonoBehaviour
 		ability1.Initialize(this);
 		ability2.Initialize(this);
 		ability3.Initialize(this);
+		initializedEvent(ability1, ability2, ability3, attack);
 	}
 
 	public List<string> GetCurrentlyTickingAbilities()
