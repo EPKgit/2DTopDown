@@ -26,6 +26,7 @@ public class AbilityInspector : Editor
 		maxDuration = serializedObject.FindProperty("maxDuration");
 		pressOnly = serializedObject.FindProperty("pressOnly");
 		cost = serializedObject.FindProperty("cost");
+		cooldown = serializedObject.FindProperty("maxCooldown");
 	}
 
 	private SerializedProperty ticking;
@@ -33,6 +34,7 @@ public class AbilityInspector : Editor
 	private SerializedProperty maxDuration;
 	private SerializedProperty pressOnly;
 	private SerializedProperty cost;
+	private SerializedProperty cooldown;
 	
 
 	public override void OnInspectorGUI()
@@ -48,6 +50,7 @@ public class AbilityInspector : Editor
 		}
 		EditorGUILayout.PropertyField(pressOnly);
 		EditorGUILayout.PropertyField(cost);
+		EditorGUILayout.PropertyField(cooldown);
 		foreach(FieldInfo temp in childFields)
 		{
 			EditorGUILayout.PropertyField(serializedObject.FindProperty(temp.Name));

@@ -20,7 +20,7 @@ public class BaseHealthInspector : Editor
 	{
 		if(EditorApplication.isPlaying || EditorApplication.isPaused)
 		{
-			EditorGUILayout.LabelField(string.Format("{0}/{1}", baseHealth.GetCurrentHealth(), baseHealth.maxHealth));
+			EditorGUILayout.LabelField(string.Format("{0}/{1}", baseHealth.GetCurrentHealth(), baseHealth.GetMaxHealth()));
 			return;
 		}
 		if(statBlock == null || !statBlock.HasStat(StatName.Toughness))

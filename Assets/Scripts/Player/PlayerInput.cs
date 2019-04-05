@@ -40,6 +40,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	void Awake()
 	{
+		//controls.MakePrivateCopyOfActions();
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
 		playerAbilities = GetComponent<PlayerAbilities>();
@@ -86,8 +87,8 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 				mouse = InputSystem.GetDevice<Mouse>();
 				inputType = InputType.KB;
 			}
-			
 		}
+		InGameUIManager.instance?.RegisterPlayer(gameObject);
 	}
 
 	void GetPlayerID()

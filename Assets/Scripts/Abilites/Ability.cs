@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Input;
 
+
+public delegate void CooldownTickDelegate(float currentCooldown, float maxCooldown);
+public delegate void OnCastDeleage(Ability a);
+
 /// <summary>
 /// Represents an ability in the game, that's usable by the player. They are instantiated when the player is spawned,
 /// then initialized, and used repeatedly over the lifetime of the player object. The player gets a reference to a
@@ -10,6 +14,8 @@ using UnityEngine.Experimental.Input;
 /// </summary>
 public class Ability : ScriptableObject
 {
+	public event CooldownTickDelegate cooldownTick = delegate { };
+
 	/// <summary>
 	/// Set true if you want the ability's Tick function and FinishAbility functions to get called
 	/// </summary>
@@ -31,6 +37,11 @@ public class Ability : ScriptableObject
 	public bool pressOnly = true;
 
 	/// <summary>
+	/// The amount of time to wait after casting the ability before you can cast it again.
+	/// </summary>
+	public float maxCooldown;
+
+	/// <summary>
 	/// The amount of resource to remove from the player when checking the cost
 	/// </summary>
 	public float cost;
@@ -40,6 +51,11 @@ public class Ability : ScriptableObject
 	/// Resets to the max duration after the ability is finished
 	/// </summary>
 	protected float currentDuration;
+
+	/// <summary>
+	/// Rerpresents the amount of time remaining while the ablity is cooling down.
+	/// </summary>
+	protected float currentCooldown;
 
 	protected PlayerAbilities playerAbilities;
 
@@ -51,16 +67,41 @@ public class Ability : ScriptableObject
 	{
 		playerAbilities = pa;
 		Reinitialize();
+		currentCooldown = 0;
 	}
 
 	/// <summary>
 	/// Called multiple times over the abilities lifetime, every time the ability is ended. Used to reset
 	/// any state changes over the course of ability's use that should be reverted e.g. timers should be
-	/// reset to 0.
+	/// reset to 0. Also sets the cooldown time to its max.
 	/// </summary>
 	public virtual void Reinitialize()
 	{
 		currentDuration = maxDuration;
+		currentCooldown = maxCooldown;
+	}
+
+	/// <summary>
+	/// Lowers the cooldown time of the ability, potentially making it castable
+	/// </summary>
+	/// <param name="deltaTime">The time since the last cooldown tick</param>
+	public virtual void Cooldown(float deltaTime)
+	{
+		if(currentCooldown <= 0)
+		{
+			return;
+		}
+		currentCooldown -= deltaTime;
+		cooldownTick(currentCooldown, maxCooldown);
+	}
+
+	/// <summary>
+	/// Allows the ability to be queried if it is castable without trying to use the ability.
+	/// </summary>
+	/// <returns>Returns true if the ability could be cast, false otherwise</returns>
+	public virtual bool IsCastable()
+	{
+		return currentCooldown <= 0 && currentDuration == maxDuration;
 	}
 
 	/// <summary>
@@ -74,7 +115,7 @@ public class Ability : ScriptableObject
 		if(DEBUGFLAGS.ABILITY) if(DEBUGFLAGS.ABILITY) Debug.Log(string.Format("{0} ATTEMPT USE perf:{1} strt:{2} canc:{3}", name, ctx.performed, ctx.started, ctx.cancelled));
 		// if the ability only wants buttondown and it wasn't or if the ability is already ticking, don't use
 		// should also check cost
-		if( (pressOnly && !ctx.performed) || currentDuration != maxDuration)
+		if( currentCooldown > 0 || (pressOnly && !ctx.performed) || currentDuration != maxDuration )
 		{
 			return false;
 		}
@@ -111,7 +152,12 @@ public class Ability : ScriptableObject
 	/// </summary>
 	public virtual void FinishAbility()
 	{
+		Reinitialize();
+	}
 
+	public float GetCooldownPercent()
+	{
+		return currentCooldown / maxCooldown;
 	}
 
 	public new virtual string ToString()

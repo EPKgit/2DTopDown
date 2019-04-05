@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 {
-	public float maxHealth;
-
+	public event HealthValueSetDelegate healthValueUpdateEvent = delegate { };
 	public event MutableHealthChangeDelegate preDamageEvent = delegate { };
 	public event MutableHealthChangeDelegate preHealEvent = delegate { };
 	public event HealthChangeNotificationDelegate postDamageEvent = delegate { };
@@ -13,6 +12,7 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	public event HealthChangeNotificationDelegate healthChangeEvent = delegate { };
 	
 	private float currentHealth;
+	private float maxHealth;
 	private StatBlock stats;
 
     void Awake()
@@ -38,6 +38,7 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	{
 		currentHealth = currentHealth / maxHealth * value;
 		maxHealth = value;
+		healthValueUpdateEvent(currentHealth, maxHealth);
 	}
 
 	public void UpdateMaxHealth(StatBlock s)
@@ -99,14 +100,21 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	{
 		transform.position = Vector3.zero;
 		currentHealth = maxHealth;
+		healthValueUpdateEvent(currentHealth, maxHealth);
 	}
 
 	public float GetCurrentHealth()
 	{
 		return currentHealth;
 	}
+
+	public float GetMaxHealth()
+	{
+		return maxHealth;
+	}
 }
 
+public delegate void HealthValueSetDelegate(float newCurrent, float newMax);
 public delegate void MutableHealthChangeDelegate(HealthChangeEventData hced);
 public delegate void HealthChangeNotificationDelegate(HealthChangeNotificationData hcnd);
 

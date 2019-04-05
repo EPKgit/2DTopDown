@@ -35,11 +35,6 @@ public abstract class BaseEnemy : MonoBehaviour
 	protected virtual void Start()
 	{
 		UpdateChosenPlayer();
-		if(chosenPlayer == null)
-		{
-			Debug.LogError("Enemy cannot find target! " + gameObject.name);
-			this.enabled = false;
-		}
 	}
 
 	protected virtual void AddAggroEvent(HealthChangeNotificationData hcnd)
@@ -57,10 +52,32 @@ public abstract class BaseEnemy : MonoBehaviour
 		UpdateChosenPlayer();
 	}
 
-	protected virtual void UpdateChosenPlayer()
+	/// <summary>
+	/// Decides which player the enemy will choose to attack
+	/// </summary>
+	/// <returns>Returns true if there is a player, false if one cannot be chosen</returns>
+	protected virtual bool UpdateChosenPlayer()
 	{
+		if(PlayerInput.all.Count == 0)
+		{
+			return false;
+		}
 		chosenPlayer = aggro?.Peek()?.source ?? PlayerInput.all[Random.Range(0, PlayerInput.all.Count)].gameObject;
 		if(DEBUGFLAGS.AGGRO) Debug.Log(chosenPlayer.name);
+		return true;
+	}
+
+	//Not that performant, can be updated if we need to
+	//Should add an aggro range 
+	protected virtual void Update()
+	{
+		if(chosenPlayer == null)
+		{
+			if(!UpdateChosenPlayer())
+			{
+				return;
+			}
+		}
 	}
 
 	public AggroData[] GetAggroDataArray()

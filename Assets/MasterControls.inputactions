@@ -18,7 +18,7 @@
                 {
                     "name": "Attack",
                     "id": "8ceb348d-a610-4df3-b3c4-16162752eeb5",
-                    "expectedControlLayout": "Button",
+                    "expectedControlLayout": "",
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",

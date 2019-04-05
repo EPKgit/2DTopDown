@@ -16,6 +16,7 @@ MonoBehaviour:
   hasDuration: 0
   maxDuration: 0
   pressOnly: 1
+  maxCooldown: 1
   cost: 0
   bulletPrefab: {fileID: 6842005966912345751, guid: af3f157fa7763f844b6f75562682fd70,
     type: 3}

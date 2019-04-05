@@ -17,6 +17,8 @@ public class PlayerAbilities : MonoBehaviour
 	[HideInInspector]
 	public StatBlock stats;
 
+	private bool init = false;
+
 	private Ability ability1;
 	private Ability ability2;
 	private Ability ability3;
@@ -48,7 +50,20 @@ public class PlayerAbilities : MonoBehaviour
 		ability1.Initialize(this);
 		ability2.Initialize(this);
 		ability3.Initialize(this);
+		init = true;
 		initializedEvent(ability1, ability2, ability3, attack);
+	}
+
+	public void RegisterAbilityCooldownCallbacks(CooldownTickDelegate at, CooldownTickDelegate a1, CooldownTickDelegate a2, CooldownTickDelegate a3)
+	{
+		if(!init)
+		{
+			return;
+		}
+		attack.cooldownTick += at;
+		ability1.cooldownTick += a1;
+		ability2.cooldownTick += a2;
+		ability3.cooldownTick += a3;
 	}
 
 	public List<string> GetCurrentlyTickingAbilities()
@@ -68,10 +83,13 @@ public class PlayerAbilities : MonoBehaviour
 			if(currentlyTicking[x].Tick(Time.deltaTime))
 			{
 				currentlyTicking[x].FinishAbility();
-				currentlyTicking[x].Reinitialize();
 				currentlyTicking.RemoveAt(x);
 			}
 		}
+		ability1.Cooldown(Time.deltaTime);
+		ability2.Cooldown(Time.deltaTime);
+		ability3.Cooldown(Time.deltaTime);
+		attack.Cooldown(Time.deltaTime);
 	}
 
 	public void Attack(InputAction.CallbackContext ctx, Vector2 dir)
@@ -101,6 +119,10 @@ public class PlayerAbilities : MonoBehaviour
 			if(a.tickingAbility)
 			{
 				currentlyTicking.Add(a);
+			}
+			else
+			{
+				a.FinishAbility();
 			}
 		}
 	}
