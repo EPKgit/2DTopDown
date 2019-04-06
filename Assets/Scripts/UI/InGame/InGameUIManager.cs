@@ -17,15 +17,14 @@ public class InGameUIManager : Singleton<InGameUIManager>
 		{
 			UIObjects.Add(Instantiate(playerUIPrefab, Vector3.zero, Quaternion.identity, layoutGroup).GetComponent<InGamePlayerUI>());
 		}
-		UpdateUI();
 	}
 
-	public void RegisterPlayer(GameObject g)
+	void Start()
 	{
 		UpdateUI();
 	}
 
-	private void UpdateUI()
+	public void UpdateUI()
 	{
 		int x;
 		for(x = 0; x < PlayerInput.all.Count; ++x)

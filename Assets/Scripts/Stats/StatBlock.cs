@@ -15,17 +15,27 @@ public class StatBlock : MonoBehaviour
 	public List<StatInspectorValue> inspectorValues;
 
 	private Dictionary<StatName, Stat> stats;
+
+	private bool outsideInit = false;
 	
 	#region MONOBEHAVIOUR CALLBACKS
 
 	void OnValidate()
 	{
 		Initialize(inspectorValues);
+		outsideInit = false;
 	}
 
-	void Awake()
+	/// <summary>
+	/// Should only be called for editor testing
+	/// </summary>
+	void Start()
 	{
-		Initialize(inspectorValues);
+		if(!outsideInit)
+		{
+			Debug.Log("no outside init");
+			Initialize(inspectorValues);
+		}
 	}
 
 	#endregion
@@ -41,6 +51,7 @@ public class StatBlock : MonoBehaviour
 			}
 			stats.Add(statList[a].name, new Stat(statList[a]));
 		}
+		outsideInit = true;
 		initializedEvent(this);
 	}
 	
@@ -61,8 +72,8 @@ public class StatBlock : MonoBehaviour
 	/// <returns>Returns the final value of the stat if it exists, -1 if it doesn't</returns>
 	public float GetValue(StatName name)
 	{
-		Stat temp;
-		stats.TryGetValue(name, out temp);
+		Stat temp = null;
+		stats?.TryGetValue(name, out temp);
 		return temp == null ? -1f : temp.value;
 	}
 
@@ -74,7 +85,7 @@ public class StatBlock : MonoBehaviour
 	public Stat GetStat(StatName name)
 	{
 		Stat temp = null;
-		stats.TryGetValue(name, out temp);
+		stats?.TryGetValue(name, out temp);
 		return temp;
 	}
 

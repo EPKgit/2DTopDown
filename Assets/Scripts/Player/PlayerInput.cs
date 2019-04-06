@@ -22,7 +22,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	private Mouse mouse;
 
 	private PlayerMovement playerMovement;
-	private PlayerAttack playerAttack;
 	private PlayerAbilities playerAbilities;
 
 	#region INIT
@@ -88,7 +87,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 				inputType = InputType.KB;
 			}
 		}
-		InGameUIManager.instance?.RegisterPlayer(gameObject);
 	}
 
 	void GetPlayerID()

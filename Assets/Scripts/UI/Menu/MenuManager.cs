@@ -169,14 +169,18 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	/// <param name="ctx">Callback Context for the input event</param>
 	public void OnSelect(InputAction.CallbackContext ctx)
 	{
-		if(!PlayerInMenu(ctx.action.lastTriggerControl.device))
+		if(!PlayerInMenu(ctx.action.lastTriggerControl.device) || playerStatuses.Count == 0)
+		{
+			return;
+		}
+		int index = playerStatuses.FindIndex( (t) => ctx.action.lastTriggerControl.device == t.device);
+		if(playerStatuses[index].status == PlayerStatus.Ready)
 		{
 			return;
 		}
 		float val = ctx.ReadValue<float>();
 		if(DEBUGFLAGS.MENU) Debug.Log("OnSelect " + val);
 		val = val > 0 ? 1 : -1;
-		int index = playerStatuses.FindIndex( (t) => ctx.action.lastTriggerControl.device == t.device);
 		if(index != -1)
 		{
 			playerStatuses[index].selectionIndex += (int)val;

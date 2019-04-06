@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Experimental.Input;
 
 public class PlayerAbilities : MonoBehaviour
@@ -16,8 +17,6 @@ public class PlayerAbilities : MonoBehaviour
 	public CircleCollider2D col;
 	[HideInInspector]
 	public StatBlock stats;
-
-	private bool init = false;
 
 	private Ability ability1;
 	private Ability ability2;
@@ -50,16 +49,11 @@ public class PlayerAbilities : MonoBehaviour
 		ability1.Initialize(this);
 		ability2.Initialize(this);
 		ability3.Initialize(this);
-		init = true;
 		initializedEvent(ability1, ability2, ability3, attack);
 	}
 
 	public void RegisterAbilityCooldownCallbacks(CooldownTickDelegate at, CooldownTickDelegate a1, CooldownTickDelegate a2, CooldownTickDelegate a3)
 	{
-		if(!init)
-		{
-			return;
-		}
 		attack.cooldownTick += at;
 		ability1.cooldownTick += a1;
 		ability2.cooldownTick += a2;
@@ -90,6 +84,26 @@ public class PlayerAbilities : MonoBehaviour
 		ability2.Cooldown(Time.deltaTime);
 		ability3.Cooldown(Time.deltaTime);
 		attack.Cooldown(Time.deltaTime);
+	}
+
+	public Sprite GetIcon(int index)
+	{
+		switch(index)
+		{
+			case 0:
+				return attack.icon;
+				break;
+			case 1:
+				return ability1.icon;
+				break;
+			case 2:
+				return ability2.icon;
+				break;
+			case 3:
+				return ability3.icon;
+				break;
+		}
+		return null;
 	}
 
 	public void Attack(InputAction.CallbackContext ctx, Vector2 dir)

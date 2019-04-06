@@ -47,6 +47,11 @@ public class Ability : ScriptableObject
 	public float cost;
 
 	/// <summary>
+	/// The icon of the sprite for the UI
+	/// </summary>
+	public Sprite icon;
+
+	/// <summary>
 	/// Represents the current duration of the ticking ability while it is running.
 	/// Resets to the max duration after the ability is finished
 	/// </summary>

@@ -16,12 +16,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		stats = GetComponent<StatBlock>();
-	}
-
-	void OnEnable()
-	{
-		UpdateSpeed(stats);
-		stats?.GetStat(StatName.Agility)?.RegisterStatChangeCallback(UpdateSpeed);
 		stats?.RegisterInitializationCallback(UpdateSpeed);
 	}
 
@@ -43,11 +37,14 @@ public class PlayerMovement : MonoBehaviour
 
 	public void UpdateSpeed(float f)
 	{
+		Debug.Log("updato speedo");
 		movementSpeed = f;
 	}
 
 	public void UpdateSpeed(StatBlock s)
 	{
-		movementSpeed = stats?.GetStat(StatName.Agility)?.value ?? movementSpeed;
+		stats = s;
+		s.GetStat(StatName.Agility)?.RegisterStatChangeCallback(UpdateSpeed);
+		movementSpeed = s?.GetStat(StatName.Agility)?.value ?? movementSpeed;
 	}
 }

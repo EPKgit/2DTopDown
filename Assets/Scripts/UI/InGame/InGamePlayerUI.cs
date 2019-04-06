@@ -44,6 +44,7 @@ public class InGamePlayerUI : MonoBehaviour
 	{
 		UIActive.SetActive(true);
 		player = g;
+
 		playerHealth = Lib.FindInHierarchy<BaseHealth>(player);
 		currentHealth = playerHealth.GetCurrentHealth();
 		maxHealth = playerHealth.GetMaxHealth();
@@ -51,13 +52,23 @@ public class InGamePlayerUI : MonoBehaviour
 		playerHealth.healthChangeEvent += HealthChange;
 
 		playerAbilities = Lib.FindInHierarchy<PlayerAbilities>(player);
+		OnAbilityInitialized(null, null, null, null);
 		playerAbilities.initializedEvent += OnAbilityInitialized;
-		playerAbilities.RegisterAbilityCooldownCallbacks(UpdateAttackUI, UpdateAbility1UI, UpdateAbility2UI, UpdateAbility3UI);
+	}
+
+	public void SetUIIcons()
+	{
+		ability1Icon.sprite = playerAbilities.GetIcon(1);
+		ability2Icon.sprite = playerAbilities.GetIcon(2);
+		ability3Icon.sprite = playerAbilities.GetIcon(3);
+		attackIcon.sprite = playerAbilities.GetIcon(0);
 	}
 
 	public void OnAbilityInitialized(Ability a1, Ability a2, Ability a3, Ability attack)
 	{
+		Debug.Log("OnAbilityInitialized");
 		playerAbilities.RegisterAbilityCooldownCallbacks(UpdateAttackUI, UpdateAbility1UI, UpdateAbility2UI, UpdateAbility3UI);
+		SetUIIcons();
 	}
 
 	public void UpdateCachedHealthValues(float newCurrent, float newMax)

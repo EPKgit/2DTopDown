@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tickingAbility: 1
   hasDuration: 1
-  maxDuration: 20
+  maxDuration: 3
   pressOnly: 1
+  maxCooldown: 20
   cost: 0
+  icon: {fileID: 21300004, guid: e7070e049e58ff2408532b1f29414676, type: 3}
   buffAmount: 2
   statToBuff: 0

@@ -18,6 +18,7 @@ MonoBehaviour:
   pressOnly: 1
   maxCooldown: 1
   cost: 0
+  icon: {fileID: 21300000, guid: aa950be12d88de44b8a5e8cc27dd89df, type: 3}
   bulletPrefab: {fileID: 6842005966912345751, guid: af3f157fa7763f844b6f75562682fd70,
     type: 3}
   moveSpeed: 3

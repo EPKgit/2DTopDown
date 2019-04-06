@@ -69,15 +69,13 @@ public abstract class BaseEnemy : MonoBehaviour
 
 	//Not that performant, can be updated if we need to
 	//Should add an aggro range 
-	protected virtual void Update()
+	protected virtual bool Update()
 	{
 		if(chosenPlayer == null)
 		{
-			if(!UpdateChosenPlayer())
-			{
-				return;
-			}
+			return UpdateChosenPlayer();
 		}
+		return true;
 	}
 
 	public AggroData[] GetAggroDataArray()

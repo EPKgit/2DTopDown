@@ -92,11 +92,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectorValues:
   - name: 0
-    value: 1
+    value: 200
   - name: 1
-    value: 1
+    value: 200
   - name: 2
-    value: 5
+    value: 200
 --- !u!114 &8029249362275195622
 MonoBehaviour:
   m_ObjectHideFlags: 0

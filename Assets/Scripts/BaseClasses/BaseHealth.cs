@@ -11,8 +11,9 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 	public event HealthChangeNotificationDelegate postHealEvent = delegate { };
 	public event HealthChangeNotificationDelegate healthChangeEvent = delegate { };
 	
+	public float maxHealth;
+
 	private float currentHealth;
-	private float maxHealth;
 	private StatBlock stats;
 
     void Awake()
@@ -20,13 +21,8 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		stats = GetComponent<StatBlock>();
 		maxHealth = stats?.GetValue(StatName.Toughness) ?? maxHealth;
 		currentHealth = maxHealth;
-    }
-
-	void OnEnable()
-	{
-		stats?.GetStat(StatName.Toughness)?.RegisterStatChangeCallback(UpdateMaxHealth);
 		stats?.RegisterInitializationCallback(UpdateMaxHealth);
-	}
+    }
 
 	void OnDisable()
 	{
@@ -48,6 +44,8 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		{
 			return;
 		}
+		stats?.GetStat(StatName.Toughness)?.RegisterStatChangeCallback(UpdateMaxHealth);
+		stats = s;
 		UpdateMaxHealth(value);
 	}
 

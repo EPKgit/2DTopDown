@@ -31,6 +31,7 @@ public class StatBuff : Ability
 		}
 		playerAbilities.stats.GetStat(statToBuff)?.RemoveAdditiveModifier(bonusHandle.Value);
 		Debug.Log(string.Format("Buff of {0} to {1} expiring", buffAmount, statToBuff.ToString()));
+		base.FinishAbility();
 	}
 
 	public override string ToString()

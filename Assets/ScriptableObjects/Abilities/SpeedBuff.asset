@@ -16,6 +16,8 @@ MonoBehaviour:
   hasDuration: 1
   maxDuration: 5
   pressOnly: 1
+  maxCooldown: 10
   cost: 0
-  buffAmount: 1
+  icon: {fileID: 21300006, guid: aa950be12d88de44b8a5e8cc27dd89df, type: 3}
+  buffAmount: 3
   statToBuff: 1
