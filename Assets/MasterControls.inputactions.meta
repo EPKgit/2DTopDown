@@ -11,6 +11,7 @@ ScriptedImporter:
     11400012: Gameplay/Movement
     11400014: Gameplay/Ability2
     11400016: Gameplay/Ability3
+    11400018: Gameplay/Interact
     11400020: Menu/Select
   externalObjects: {}
   userData: 

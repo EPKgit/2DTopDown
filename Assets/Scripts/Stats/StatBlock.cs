@@ -33,7 +33,6 @@ public class StatBlock : MonoBehaviour
 	{
 		if(!outsideInit)
 		{
-			Debug.Log("no outside init");
 			Initialize(inspectorValues);
 		}
 	}

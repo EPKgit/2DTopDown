@@ -23,6 +23,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	private PlayerMovement playerMovement;
 	private PlayerAbilities playerAbilities;
+	private PlayerInteraction playerInteraction;
 
 	#region INIT
 
@@ -43,6 +44,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		controls.Gameplay.SetCallbacks(this);
 		playerMovement = GetComponent<PlayerMovement>();
 		playerAbilities = GetComponent<PlayerAbilities>();
+		playerInteraction = GetComponent<PlayerInteraction>();
 		if(testingController || testingMouseAndKeyboard)
 		{
 			if(testingController && testingMouseAndKeyboard)
@@ -172,6 +174,19 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 			return;
 		}
 		playerAbilities.Ability3(ctx, Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject));
+	}
+
+	#endregion
+
+	#region INTERACTION
+
+	public void OnInteract(InputAction.CallbackContext ctx)
+	{
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
+		playerInteraction.AttemptPerform();
 	}
 
 	#endregion

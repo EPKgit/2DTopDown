@@ -54,6 +54,16 @@
                     "processors": "",
                     "interactions": "Press(behavior=2)",
                     "bindings": []
+                },
+                {
+                    "name": "Interact",
+                    "id": "5f13fa39-87d8-4175-9fa8-041dc74fd9f6",
+                    "expectedControlLayout": "",
+                    "continuous": false,
+                    "passThrough": true,
+                    "processors": "",
+                    "interactions": "Press",
+                    "bindings": []
                 }
             ],
             "bindings": [
@@ -400,6 +410,30 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ability3",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "chainWithPrevious": false,
                     "isComposite": false,
                     "isPartOfComposite": false,

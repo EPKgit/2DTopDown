@@ -25,6 +25,7 @@ public class MasterControls : InputActionAssetReference
         m_Gameplay_Ability1 = m_Gameplay.GetAction("Ability1");
         m_Gameplay_Ability2 = m_Gameplay.GetAction("Ability2");
         m_Gameplay_Ability3 = m_Gameplay.GetAction("Ability3");
+        m_Gameplay_Interact = m_Gameplay.GetAction("Interact");
         // Menu
         m_Menu = asset.GetActionMap("Menu");
         m_Menu_Join = m_Menu.GetAction("Join");
@@ -45,6 +46,7 @@ public class MasterControls : InputActionAssetReference
         m_Gameplay_Ability1 = null;
         m_Gameplay_Ability2 = null;
         m_Gameplay_Ability3 = null;
+        m_Gameplay_Interact = null;
         if (m_MenuActionsCallbackInterface != null)
         {
             Menu.SetCallbacks(null);
@@ -78,6 +80,7 @@ public class MasterControls : InputActionAssetReference
     private InputAction m_Gameplay_Ability1;
     private InputAction m_Gameplay_Ability2;
     private InputAction m_Gameplay_Ability3;
+    private InputAction m_Gameplay_Interact;
     public struct GameplayActions
     {
         private MasterControls m_Wrapper;
@@ -87,6 +90,7 @@ public class MasterControls : InputActionAssetReference
         public InputAction @Ability1 { get { return m_Wrapper.m_Gameplay_Ability1; } }
         public InputAction @Ability2 { get { return m_Wrapper.m_Gameplay_Ability2; } }
         public InputAction @Ability3 { get { return m_Wrapper.m_Gameplay_Ability3; } }
+        public InputAction @Interact { get { return m_Wrapper.m_Gameplay_Interact; } }
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -112,6 +116,9 @@ public class MasterControls : InputActionAssetReference
                 Ability3.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
                 Ability3.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
                 Ability3.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility3;
+                Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                Interact.cancelled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -131,6 +138,9 @@ public class MasterControls : InputActionAssetReference
                 Ability3.started += instance.OnAbility3;
                 Ability3.performed += instance.OnAbility3;
                 Ability3.cancelled += instance.OnAbility3;
+                Interact.started += instance.OnInteract;
+                Interact.performed += instance.OnInteract;
+                Interact.cancelled += instance.OnInteract;
             }
         }
     }
@@ -214,6 +224,7 @@ public interface IGameplayActions
     void OnAbility1(InputAction.CallbackContext context);
     void OnAbility2(InputAction.CallbackContext context);
     void OnAbility3(InputAction.CallbackContext context);
+    void OnInteract(InputAction.CallbackContext context);
 }
 public interface IMenuActions
 {

@@ -66,7 +66,6 @@ public class InGamePlayerUI : MonoBehaviour
 
 	public void OnAbilityInitialized(Ability a1, Ability a2, Ability a3, Ability attack)
 	{
-		Debug.Log("OnAbilityInitialized");
 		playerAbilities.RegisterAbilityCooldownCallbacks(UpdateAttackUI, UpdateAbility1UI, UpdateAbility2UI, UpdateAbility3UI);
 		SetUIIcons();
 	}
