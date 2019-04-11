@@ -65,7 +65,7 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		float aggroValue = overallSource?.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
 		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, data.delta, aggroValue);
 		postDamageEvent(notifData);
-		notifData.value *= -1;
+		notifData = new HealthChangeNotificationData(overallSource, localSource, -data.delta, aggroValue);
 		healthChangeEvent(notifData);
 		
 		if(currentHealth <= 0)
@@ -142,10 +142,10 @@ public class HealthChangeEventData
 
 public class HealthChangeNotificationData
 {
-	public GameObject overallSource;
-	public GameObject localSource;
-	public float value;
-	public float aggroPercentage;
+	public readonly GameObject overallSource;
+	public readonly GameObject localSource;
+	public readonly float value;
+	public readonly float aggroPercentage;
 
 	/// <summary>
 	/// Constructor for a HealthChangeNotificaitonData. Represent on instance of taking or healing damage.

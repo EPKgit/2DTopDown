@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BaseHealth))]
+[CustomEditor(typeof(BaseHealth), true)]
 public class BaseHealthInspector : Editor
 {
 	private BaseHealth baseHealth;
@@ -21,6 +21,10 @@ public class BaseHealthInspector : Editor
 		if(EditorApplication.isPlaying || EditorApplication.isPaused)
 		{
 			EditorGUILayout.LabelField(string.Format("{0}/{1}", baseHealth.GetCurrentHealth(), baseHealth.GetMaxHealth()));
+			if(GUILayout.Button("Take 1 Damage"))
+			{
+				baseHealth.Damage(1, null, null);
+			}
 			return;
 		}
 		if(statBlock == null || !statBlock.HasStat(StatName.Toughness))
