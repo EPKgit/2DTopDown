@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	private PlayerMovement playerMovement;
 	private PlayerAbilities playerAbilities;
 	private PlayerInteraction playerInteraction;
+  private Vector2 aimDirection;
 
 	#region INIT
 
@@ -128,6 +129,30 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 	{
 		playerMovement.Move(Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject, true));
 	}
+
+	#endregion
+
+
+	#region AIMDIRECTION
+
+	public void OnAimDirection(InputAction.CallbackContext ctx)
+	{	
+		if(!IsMyInput(ctx))
+		{
+			return;
+		}
+		if(DEBUGFLAGS.AIMING) Debug.Log(gameObject.name + " AIMING ");
+		DoAimDirection(ctx);
+	}
+
+	void DoAimDirection(InputAction.CallbackContext ctx)
+	{
+		aimDirection = Lib.GetInputDirection(gamepad, mouse, ctx, inputType, gameObject);
+	}
+
+  public Vector2 GetAimDirection() {
+    return aimDirection;
+  }
 
 	#endregion
 

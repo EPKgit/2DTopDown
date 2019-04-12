@@ -15,4 +15,6 @@ public class DEBUGFLAGS
 	public static bool POOLMANAGER = false;
 	public static bool AGGRO = false;
 	public static bool INTERACTABLES = true;
+	public static bool AIMING = true;
+
 }

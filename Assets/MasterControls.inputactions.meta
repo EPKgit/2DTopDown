@@ -13,6 +13,7 @@ ScriptedImporter:
     11400016: Gameplay/Ability3
     11400018: Gameplay/Interact
     11400020: Menu/Select
+    11400022: Gameplay/AimDirection
   externalObjects: {}
   userData: 
   assetBundleName: 
