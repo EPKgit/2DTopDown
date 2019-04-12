@@ -93,6 +93,24 @@ public static class Lib
 		return false;
 	}
 
+	public static bool HasParent(GameObject toCheck, GameObject potentialParent)
+	{
+		if(toCheck == null || potentialParent == null)
+		{
+			return false;
+		}
+		Transform parent = toCheck.transform;
+		while(parent != null)
+		{
+			if(parent.gameObject == potentialParent)
+			{
+				return true;
+			}
+			parent = parent.parent;
+		}
+		return false;
+	}
+
 	public static Vector3 GetMouseDirection(Mouse m, GameObject from)
 	{
 		Vector3 val = m.position.ReadValue();

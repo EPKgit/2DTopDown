@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd61b1681e96a44896875db0b7aae02, type: 3}
+  m_Name: LifePath
+  m_EditorClassIdentifier: 
+  tickingAbility: 0
+  hasDuration: 0
+  maxDuration: 0
+  pressOnly: 1
+  maxCooldown: 1
+  cost: 0
+  icon: {fileID: 21300022, guid: e7070e049e58ff2408532b1f29414676, type: 3}
+  bulletPrefab: {fileID: 8444707867108139151, guid: 3ed3d73c7adeea141bfdf254a2e08101,
+    type: 3}
+  pathPrefab: {fileID: 2581847825453974330, guid: fa7301cdd16e31b40b635a6c05786b6a,
+    type: 3}
+  moveSpeed: 3
+  damage: 2
+  width: 1.2

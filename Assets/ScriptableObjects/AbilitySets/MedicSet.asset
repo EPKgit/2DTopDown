@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedicSet
   m_EditorClassIdentifier: 
   name: MedicSet
-  ability1: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
+  ability1: {fileID: 11400000, guid: 06dc914fb4eff4f41b3323df5030f00b, type: 2}
   ability2: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
   ability3: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
-  attack: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
+  attack: {fileID: 11400000, guid: a0f155a0a7cb74d41a97933eaa70f007, type: 2}

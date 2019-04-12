@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Poolable : MonoBehaviour
 {
-    public GameObject prefab;
+    [HideInInspector]
+	public GameObject prefab;
 
 	/// <summary>
 	/// Called when the poolable object is first created by the pool manager, get references that

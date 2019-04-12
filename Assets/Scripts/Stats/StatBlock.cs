@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatName { Strength, Agility, Toughness, AggroPercentage }
+public enum StatName { Strength, Agility, Toughness, AggroPercentage, DamagePercentage, HealingPercentage }
 
 public class StatBlock : MonoBehaviour
 {	
@@ -49,6 +50,10 @@ public class StatBlock : MonoBehaviour
 				throw new System.InvalidOperationException("StatBlock incorrectly initialized with duplicate stats on " + gameObject.name);
 			}
 			stats.Add(statList[a].name, new Stat(statList[a]));
+		}
+		foreach(StatName t in Enum.GetValues(typeof(StatName)))
+		{
+			stats.Add(t, new Stat(t, 1));
 		}
 		outsideInit = true;
 		initializedEvent(this);
