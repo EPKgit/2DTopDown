@@ -18,11 +18,11 @@ public class LifePathPath : BaseProjectile
 		timeLeft = 10;
 	}
 
-	public void Setup(Vector3 pos, Vector3 dir, GameObject p, float w)
+	public void Setup(Vector3 pos, Vector3 dir, GameObject p, float w, float l)
 	{
 		base.Setup(pos, Vector3.zero, p);
 		this.transform.up = dir;
-		this.transform.localScale = new Vector3(1, w, 1);
+		this.transform.localScale = new Vector3(w, l, 1);
 	}
 
 	protected override void Update()

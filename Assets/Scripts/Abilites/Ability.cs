@@ -120,7 +120,7 @@ public class Ability : ScriptableObject
 		if(DEBUGFLAGS.ABILITY) if(DEBUGFLAGS.ABILITY) Debug.Log(string.Format("{0} ATTEMPT USE perf:{1} strt:{2} canc:{3}", name, ctx.performed, ctx.started, ctx.cancelled));
 		// if the ability only wants buttondown and it wasn't or if the ability is already ticking, don't use
 		// should also check cost
-		if( currentCooldown > 0 || (pressOnly && !ctx.performed) || currentDuration != maxDuration )
+		if( (pressOnly && !ctx.performed) || !IsCastable() )
 		{
 			return false;
 		}

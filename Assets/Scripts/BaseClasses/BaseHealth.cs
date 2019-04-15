@@ -49,6 +49,20 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		UpdateMaxHealth(value);
 	}
 
+	public void SetHealth(float delta)
+	{
+		currentHealth += delta;
+		if(currentHealth <= 0)
+		{
+			Die();
+		}
+		if(currentHealth > maxHealth)
+		{
+			currentHealth = maxHealth;
+		}
+		healthValueUpdateEvent(currentHealth, maxHealth);
+	}
+
 	public void Damage(float delta, GameObject localSource, GameObject overallSource = null)
 	{
 		if(DEBUGFLAGS.HEALTH) Debug.Log("taking damage");

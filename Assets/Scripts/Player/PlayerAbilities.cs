@@ -9,6 +9,11 @@ public class PlayerAbilities : MonoBehaviour
 	public delegate void AbilityInitializationDelegate(Ability a1, Ability a2, Ability a3, Ability attack);
 	public event AbilityInitializationDelegate initializedEvent = delegate { };
 
+	public delegate void DamageDealtDelegate(float delta);
+	public delegate void DamageHealedDelegate(float delta);
+	public event DamageDealtDelegate onDealDamage = delegate { };
+	public event DamageHealedDelegate onHealDamage = delegate { };
+
     public AbilitySet abilitySet;
 
 	[HideInInspector]
@@ -17,6 +22,8 @@ public class PlayerAbilities : MonoBehaviour
 	public CircleCollider2D col;
 	[HideInInspector]
 	public StatBlock stats;
+	[HideInInspector]
+	public BaseHealth hp;
 
 	private Ability ability1;
 	private Ability ability2;
@@ -30,6 +37,7 @@ public class PlayerAbilities : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		col = transform.Find("Colliders").GetComponent<CircleCollider2D>();
 		stats = GetComponent<StatBlock>();
+		hp = GetComponent<BaseHealth>();
 		currentlyTicking = new List<Ability>();
 	}
 
@@ -92,16 +100,12 @@ public class PlayerAbilities : MonoBehaviour
 		{
 			case 0:
 				return attack.icon;
-				break;
 			case 1:
 				return ability1.icon;
-				break;
 			case 2:
 				return ability2.icon;
-				break;
 			case 3:
 				return ability3.icon;
-				break;
 		}
 		return null;
 	}

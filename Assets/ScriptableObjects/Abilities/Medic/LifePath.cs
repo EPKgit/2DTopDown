@@ -11,6 +11,7 @@ public class LifePath : Ability
 	public float moveSpeed;
 	public float damage;
 	public float width;
+	public float lengthPerSegment;
 
 	public override void Initialize(PlayerAbilities pa)
 	{
@@ -24,7 +25,7 @@ public class LifePath : Ability
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
 		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
-		temp.GetComponent<LifePathBullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, damage, pathPrefab, moveSpeed, width);
+		temp.GetComponent<LifePathBullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, damage, pathPrefab, moveSpeed, width, lengthPerSegment);
 		temp.GetComponent<Poolable>().Reset();
 	}
 }

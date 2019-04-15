@@ -5,13 +5,14 @@ using UnityEngine;
 public class LifePathBullet : BaseProjectile
 {
 	private float width;
+	private float length;
 	private float interval;
 	private GameObject pathPrefab;
 	private float damage;
 	private Vector3 startPosition;
 	private float timer;
 
-	public void Setup(Vector3 pos, Vector3 direction, GameObject p, float d, GameObject g, float speed, float w)
+	public void Setup(Vector3 pos, Vector3 direction, GameObject p, float d, GameObject g, float speed, float w, float l)
 	{
 		transform.position = pos;
 		startPosition = pos;
@@ -19,8 +20,9 @@ public class LifePathBullet : BaseProjectile
 		creator = p;
 		damage = d;
 		pathPrefab = g;
-		interval = 1 / speed;
+		interval = 0.8f / speed * l;
 		width = w;
+		length = l;
 		timer = interval;
 	}
 
@@ -31,7 +33,7 @@ public class LifePathBullet : BaseProjectile
 		if(timer <= 0)
 		{
 			GameObject temp = PoolManager.instance.RequestObject(pathPrefab);
-			temp.GetComponent<LifePathPath>().Setup(transform.position, rb.velocity, creator, width);
+			temp.GetComponent<LifePathPath>().Setup(transform.position, rb.velocity, creator, width, length);
 			temp.GetComponent<Poolable>().Reset();
 			timer = interval;
 		}

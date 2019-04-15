@@ -53,7 +53,10 @@ public class StatBlock : MonoBehaviour
 		}
 		foreach(StatName t in Enum.GetValues(typeof(StatName)))
 		{
-			stats.Add(t, new Stat(t, 1));
+			if(!HasStat(t))
+			{
+				stats.Add(t, new Stat(t, 1));
+			}
 		}
 		outsideInit = true;
 		initializedEvent(this);
