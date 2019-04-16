@@ -114,8 +114,12 @@ public static class Lib
 	public static Vector3 GetMouseDirection(Mouse m, GameObject from)
 	{
 		Vector3 val = m.position.ReadValue();
-		val.z = -CameraController.instance.transform.position.z;
-		Vector3 worldSpacePosition = CameraController.instance.gameObject.GetComponent<Camera>().ScreenToWorldPoint(val);
+    Ray cameraRay = CameraController.instance.gameObject.GetComponent<Camera>().ScreenPointToRay(val);
+    Plane groundPlane = new Plane(Vector3.forward, Vector3.zero);
+    float rayLength;
+    groundPlane.Raycast(cameraRay, out rayLength);
+    Vector3 worldSpacePosition = cameraRay.GetPoint(rayLength);
+    GameObject.Find("Test").transform.position = worldSpacePosition;
 		return worldSpacePosition - from.transform.position;
 	}
 

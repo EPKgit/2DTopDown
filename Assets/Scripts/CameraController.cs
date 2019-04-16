@@ -6,12 +6,13 @@ public class CameraController : Singleton<CameraController>
 {
 	public float lerpFactor = 0.4f;
 
-	private float baseZ;
+  private Vector3 baseOffset;
 
 	protected override void Awake()
 	{
 		base.Awake();
-		baseZ = transform.position.z;
+    baseOffset = new Vector3(0,6,-3);
+    transform.rotation = Quaternion.Euler(60,0,0);
 	}
 
 	void LateUpdate()
@@ -29,6 +30,7 @@ public class CameraController : Singleton<CameraController>
 		}
 		xVal /= PlayerInput.all.Count;
 		yVal /= PlayerInput.all.Count;
-		transform.position = Vector3.Lerp(transform.position, new Vector3(xVal, yVal, baseZ), lerpFactor);
+    Vector3 target = new Vector3(xVal, yVal, 0) + baseOffset;
+		transform.position = Vector3.Lerp(transform.position, target, lerpFactor);
 	}
 }
