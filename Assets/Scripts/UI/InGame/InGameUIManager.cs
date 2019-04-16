@@ -12,7 +12,7 @@ public class InGameUIManager : Singleton<InGameUIManager>
 	protected override void Awake()
 	{
 		UIObjects = new List<InGamePlayerUI>();
-		layoutGroup = GameObject.Find("Canvas").transform.Find("PlayerUI");
+		layoutGroup = GameObject.Find("InGameCanvas").transform.Find("PlayerUI");
 		for(int x = 0; x < MenuManager.maxPlayers; ++x)
 		{
 			UIObjects.Add(Instantiate(playerUIPrefab, Vector3.zero, Quaternion.identity, layoutGroup).GetComponent<InGamePlayerUI>());
