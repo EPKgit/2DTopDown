@@ -16,9 +16,10 @@ MonoBehaviour:
   hasDuration: 0
   maxDuration: 0
   pressOnly: 1
-  maxCooldown: 1
+  maxCooldown: 0
   cost: 0
   icon: {fileID: 21300000, guid: b867aa974c7130442bcb15062e85bea1, type: 3}
   bulletPrefab: {fileID: 6842005966912345751, guid: 209986890c61147b08d5106b1c86c536,
     type: 3}
   moveSpeed: 3
+  damage: 0

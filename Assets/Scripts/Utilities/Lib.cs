@@ -119,7 +119,6 @@ public static class Lib
     float rayLength;
     groundPlane.Raycast(cameraRay, out rayLength);
     Vector3 worldSpacePosition = cameraRay.GetPoint(rayLength);
-    GameObject.Find("Test").transform.position = worldSpacePosition;
 		return worldSpacePosition - from.transform.position;
 	}
 

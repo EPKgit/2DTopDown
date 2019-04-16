@@ -141,7 +141,7 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 		{
 			return;
 		}
-		if(DEBUGFLAGS.AIMING) Debug.Log(gameObject.name + " AIMING ");
+		if(DEBUGFLAGS.AIMING) Debug.Log(gameObject.name + " AIMING");
 		DoAimDirection(ctx);
 	}
 

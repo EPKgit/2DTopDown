@@ -11,8 +11,7 @@ public class CameraController : Singleton<CameraController>
 	protected override void Awake()
 	{
 		base.Awake();
-    baseOffset = new Vector3(0,6,-3);
-    transform.rotation = Quaternion.Euler(60,0,0);
+    baseOffset = transform.position;
 	}
 
 	void LateUpdate()

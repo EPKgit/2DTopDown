@@ -35,9 +35,6 @@ public class LifePathBullet : BaseProjectile
 			GameObject temp = PoolManager.instance.RequestObject(pathPrefab);
 			temp.GetComponent<LifePathPath>().Setup(transform.position, rb.velocity, creator, width, length);
 			temp.GetComponent<Poolable>().Reset();
-      // Vector3 rotation = temp.transform.rotation.eulerAngles;
-      // rotation.x = 60;
-      // temp.transform.rotation = Quaternion.Euler(rotation);
 			timer = interval;
 		}
 	}

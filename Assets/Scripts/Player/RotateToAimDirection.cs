@@ -15,8 +15,10 @@ public class RotateToAimDirection : MonoBehaviour
     void Update()
     {
         Vector3 angles = transform.rotation.eulerAngles;
-        Vector2 aimDirection = playerInput.GetAimDirection();
-        angles.z = Mathf.Atan2(aimDirection.y, aimDirection.x)*180/Mathf.PI;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(angles), 0.5f);
+        Vector3 aimDirection = -playerInput.GetAimDirection();
+        angles.z = Mathf.Atan2(aimDirection.y, aimDirection.x)*Mathf.Rad2Deg;
+        Quaternion target = Quaternion.Euler(angles);
+        // Quaternion target = Quaternion.LookRotation(aimDirection, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, target, 0.5f);
     }
 }
