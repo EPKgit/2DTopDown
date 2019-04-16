@@ -9,11 +9,6 @@ public class PlayerAbilities : MonoBehaviour
 	public delegate void AbilityInitializationDelegate(Ability a1, Ability a2, Ability a3, Ability attack);
 	public event AbilityInitializationDelegate initializedEvent = delegate { };
 
-	public delegate void DamageDealtDelegate(float delta);
-	public delegate void DamageHealedDelegate(float delta);
-	public event DamageDealtDelegate onDealDamage = delegate { };
-	public event DamageHealedDelegate onHealDamage = delegate { };
-
     public AbilitySet abilitySet;
 
 	[HideInInspector]

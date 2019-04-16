@@ -77,9 +77,10 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		if(DEBUGFLAGS.HEALTH) Debug.Log("not cancelled");
 		currentHealth -= data.delta;
 		float aggroValue = overallSource?.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
-		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, data.delta, aggroValue);
+		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, gameObject, data.delta, aggroValue);
 		postDamageEvent(notifData);
-		notifData = new HealthChangeNotificationData(overallSource, localSource, -data.delta, aggroValue);
+		overallSource?.GetComponent<IHealthCallbacks>()?.DamageDealtCallback(notifData);
+		notifData = new HealthChangeNotificationData(overallSource, localSource, gameObject, -data.delta, aggroValue);
 		healthChangeEvent(notifData);
 		
 		if(currentHealth <= 0)
@@ -99,9 +100,10 @@ public class BaseHealth : MonoBehaviour, IHealable, IDamagable
 		}
 		currentHealth += data.delta;
 		float aggroValue = overallSource?.GetComponent<StatBlock>()?.GetStat(StatName.AggroPercentage)?.value ?? 1;
-		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, delta, aggroValue);
+		HealthChangeNotificationData notifData = new HealthChangeNotificationData(overallSource, localSource, gameObject, delta, aggroValue);
 		postHealEvent(notifData);
 		healthChangeEvent(notifData);
+		overallSource?.GetComponent<IHealthCallbacks>()?.DamageHealedCallback(notifData);
 		if(currentHealth > maxHealth)
 		{
 			currentHealth = maxHealth;
@@ -158,6 +160,7 @@ public class HealthChangeNotificationData
 {
 	public readonly GameObject overallSource;
 	public readonly GameObject localSource;
+	public readonly GameObject target;
 	public readonly float value;
 	public readonly float aggroPercentage;
 
@@ -168,10 +171,11 @@ public class HealthChangeNotificationData
 	/// <param name="l">The local source</param>
 	/// <param name="v">The amount of healing or damage done. Will be negative for damage, positive for healing.</param>
 	/// <param name="a">The aggropercentage, defaulted to 1</param>
-	public HealthChangeNotificationData(GameObject o, GameObject l, float v, float a = 1)
+	public HealthChangeNotificationData(GameObject o, GameObject l, GameObject t, float v, float a = 1)
 	{
 		overallSource = o;
 		localSource = l;
+		target = t;
 		value = v;
 		aggroPercentage = a;
 	}
