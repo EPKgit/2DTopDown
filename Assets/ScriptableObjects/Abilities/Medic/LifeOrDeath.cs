@@ -26,7 +26,6 @@ public class LifeOrDeath : Ability
 		{
 			sb = pi.gameObject.GetComponent<StatBlock>();
 			s = sb.GetStat(StatName.DamagePercentage);
-			Debug.Log("adding bonus to " + s);
 			bonuses.Add(new System.Tuple<Stat, int>(s, s.AddMultiplicativeModifier(percentageDamageBonus)));
 		}
 	}
@@ -35,7 +34,6 @@ public class LifeOrDeath : Ability
 	{
 		foreach(System.Tuple<Stat, int> s in bonuses)
 		{
-			Debug.Log("removing bonus from " + s.Item1);
 			s.Item1.RemoveMultiplicativeModifier(s.Item2);
 		}
 		base.FinishAbility();

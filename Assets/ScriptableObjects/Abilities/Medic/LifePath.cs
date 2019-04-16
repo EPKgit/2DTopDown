@@ -25,7 +25,15 @@ public class LifePath : Ability
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
 		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
-		temp.GetComponent<LifePathBullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, damage, pathPrefab, moveSpeed, width, lengthPerSegment);
+		temp.GetComponent<LifePathBullet>().Setup
+		(
+			playerAbilities.transform.position, 
+			inputDirection, playerAbilities.gameObject, 
+			damage * playerAbilities.stats.GetValue(StatName.DamagePercentage),
+			pathPrefab, 
+			moveSpeed, 
+			width, 
+			lengthPerSegment);
 		temp.GetComponent<Poolable>().Reset();
 	}
 }

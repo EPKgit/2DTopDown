@@ -52,7 +52,6 @@ public class InGamePlayerUI : MonoBehaviour
 		playerHealth.healthChangeEvent += HealthChange;
 
 		playerAbilities = Lib.FindInHierarchy<PlayerAbilities>(player);
-		OnAbilityInitialized(null, null, null, null);
 		playerAbilities.initializedEvent += OnAbilityInitialized;
 	}
 

@@ -46,7 +46,7 @@ public class LifePathBullet : BaseProjectile
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");
-		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, gameObject, creator);
+		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(damage, gameObject, creator);
    		DestroySelf();
 	}
 }

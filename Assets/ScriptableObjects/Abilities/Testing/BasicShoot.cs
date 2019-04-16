@@ -7,6 +7,7 @@ public class BasicShoot : Ability
 {
 	public GameObject bulletPrefab;
 	public float moveSpeed;
+	public float damage;
 
 	public override void Initialize(PlayerAbilities pa)
 	{
@@ -19,7 +20,11 @@ public class BasicShoot : Ability
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
 		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
-		temp.GetComponent<Bullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject);
+		temp.GetComponent<Bullet>().Setup
+		(
+			playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, 
+			damage * playerAbilities.stats.GetValue(StatName.DamagePercentage)
+		);
 		temp.GetComponent<Poolable>().Reset();
 	}
 }

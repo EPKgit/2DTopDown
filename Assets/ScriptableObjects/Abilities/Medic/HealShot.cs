@@ -20,7 +20,13 @@ public class HealShot : Ability
 		inputDirection = Lib.DefaultDirectionCheck(inputDirection);
 		inputDirection *= moveSpeed;
 		GameObject temp = PoolManager.instance.RequestObject(bulletPrefab);
-		temp.GetComponent<HealBullet>().Setup(playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, damage);
+		temp.GetComponent<HealBullet>().Setup
+		(
+			playerAbilities.transform.position, 
+			inputDirection, 
+			playerAbilities.gameObject, 
+			damage * playerAbilities.stats.GetValue(StatName.DamagePercentage)
+		);
 		temp.GetComponent<Poolable>().Reset();
 	}
 }
