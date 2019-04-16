@@ -5,11 +5,20 @@ using UnityEngine;
 public class Bullet : BaseProjectile
 {
 	public GameObject bulletEffect;
+	public float damage;
 
 	public override void Reset()
 	{
 		base.Reset();
 		GetComponent<TrailRenderer>().Clear();
+	}
+
+	public void Setup(Vector3 pos, Vector3 direction, GameObject p, float d)
+	{
+		transform.position = pos;
+		rb.velocity = direction;
+		creator = p;
+		damage = d;
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -19,7 +28,7 @@ public class Bullet : BaseProjectile
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");
-		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(1, gameObject, creator);
+		Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(damage, gameObject, creator);
     	BulletEffect(transform.position);
    		DestroySelf();
 	}
