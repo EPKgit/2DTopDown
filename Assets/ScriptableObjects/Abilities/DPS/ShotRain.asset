@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ef2bddf0a47d147b148e7af06cdea4, type: 3}
+  m_Name: ShotRain
+  m_EditorClassIdentifier: 
+  tickingAbility: 0
+  hasDuration: 0
+  maxDuration: 0
+  pressOnly: 1
+  maxCooldown: 0
+  cost: 0
+  icon: {fileID: 21300004, guid: aa950be12d88de44b8a5e8cc27dd89df, type: 3}
+  bulletPrefab: {fileID: 6842005966912345751, guid: af3f157fa7763f844b6f75562682fd70,
+    type: 3}
+  damage: 1
+  bulletSpeed: 1
+  numBullets: 16

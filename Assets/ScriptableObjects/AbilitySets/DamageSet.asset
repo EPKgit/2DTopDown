@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DamageSet
   m_EditorClassIdentifier: 
   name: DamageSet
-  ability1: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
-  ability2: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
-  ability3: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
-  attack: {fileID: 11400000, guid: 2005790a7a7e44749b9b5a7526af4d0e, type: 2}
+  ability1: {fileID: 11400000, guid: f9fc01f52f314ac4985dfecfb21516eb, type: 2}
+  ability2: {fileID: 11400000, guid: 4c6a04ce2efd913458d245093d24364b, type: 2}
+  ability3: {fileID: 11400000, guid: 0884422c848715448b077e1afc001803, type: 2}
+  attack: {fileID: 11400000, guid: 95813177e72f2f7478f71d653ddc44b2, type: 2}

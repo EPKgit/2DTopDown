@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294facc77faab9c40ae55e7fcb08fe9b, type: 3}
+  m_Name: AndroidGuns
+  m_EditorClassIdentifier: 
+  tickingAbility: 1
+  hasDuration: 1
+  maxDuration: 10
+  pressOnly: 1
+  maxCooldown: 0
+  cost: 0
+  icon: {fileID: 21300012, guid: aa950be12d88de44b8a5e8cc27dd89df, type: 3}
+  gunPrefab: {fileID: 840706438349390460, guid: 73009b92d8fa83445addf24b31e99865,
+    type: 3}
+  bulletPrefab: {fileID: 6842005966912345751, guid: af3f157fa7763f844b6f75562682fd70,
+    type: 3}
+  numGuns: 6
+  damage: 1
+  bulletSpeed: 3
+  aggroRadius: 3
+  maxDisableTime: 1
+  shootingCooldown: 0.2

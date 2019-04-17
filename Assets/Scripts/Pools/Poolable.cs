@@ -20,12 +20,15 @@ public abstract class Poolable : MonoBehaviour
 	/// Should be called when the poolable object is fetched from the PoolManager. Implemented
 	/// to reset the object back to it's prefab state.
 	/// </summary>
-	public abstract void Reset();
+	public virtual void Reset()
+	{
+
+	}
 
 	/// <summary>
 	/// Call instead of destroy on poolable objects, this will return the object to the pool to be reused.
 	/// </summary>
-	protected virtual void DestroySelf()
+	public virtual void DestroySelf()
 	{
 		PoolManager.instance.ReturnObject(prefab, gameObject);
 	}

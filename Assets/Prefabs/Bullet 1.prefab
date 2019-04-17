@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458688662}
   - component: {fileID: 458688664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: New Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3030796780966036951}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 2164068552686879723}
   - component: {fileID: 6486731817983233058}
   - component: {fileID: 1209037929}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 4278226723248722445}
   - component: {fileID: 1009684758047046816}
   - component: {fileID: 1296997300493678669}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

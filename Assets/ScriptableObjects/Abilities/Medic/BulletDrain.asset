@@ -19,4 +19,4 @@ MonoBehaviour:
   maxCooldown: 20
   cost: 0
   icon: {fileID: 21300000, guid: 1256b0f234448484e99f1ccd6fd56273, type: 3}
-  lifeStealPercentage: 0.5
+  lifeStealPercentage: 0.2

@@ -15,7 +15,7 @@ public class DEBUGFLAGS
 	public static bool POOLMANAGER = false;
 	public static bool AGGRO = false;
 	public static bool INTERACTABLES = false;
-	public static bool AIMING = true;
+	public static bool AIMING = false;
 	public static bool HEALTHCALLBACKS = true;
 
 }

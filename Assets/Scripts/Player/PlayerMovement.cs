@@ -27,7 +27,22 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		rb.velocity = direction * movementSpeed;
+		if(rb.velocity.magnitude < movementSpeed)
+		{
+			rb.velocity = direction * movementSpeed;
+		}
+		else
+		{
+			float degrees = Vector2.Angle(rb.velocity, direction);
+			if (150 > degrees)
+			{
+				rb.AddForce(direction * movementSpeed * 1.5f);
+			}
+			else
+			{
+				rb.AddForce(direction * movementSpeed * 0.4f);
+			}
+		}
 	}
 
 	public void Move(Vector2 dir)
