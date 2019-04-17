@@ -25,6 +25,7 @@ public class PlayerMovementInspector : Editor
 		{
 			EditorGUILayout.LabelField("MoveSpeed is being set by the StatBlock");
 			EditorGUILayout.LabelField("Value: " + statBlock.GetValue(StatName.Agility));
+			EditorGUILayout.LabelField(string.Format("({0},{1})", playerMovement.direction.x, playerMovement.direction.y));
 		}
 	}
 }

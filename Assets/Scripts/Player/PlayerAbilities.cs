@@ -65,6 +65,10 @@ public class PlayerAbilities : MonoBehaviour
 
 	public List<string> GetCurrentlyTickingAbilities()
 	{
+		if(currentlyTicking == null)
+		{
+			return null;
+		}
 		List<string> ret = new List<string>();
 		foreach(Ability a in currentlyTicking)
 		{

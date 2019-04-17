@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	public float movementSpeed;
 
-	private Vector2 direction;
+	public Vector2 direction;
 
 	private Rigidbody2D rb;
 	private StatBlock stats;

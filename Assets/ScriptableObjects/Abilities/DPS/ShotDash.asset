@@ -23,4 +23,4 @@ MonoBehaviour:
     type: 3}
   damage: 3
   bulletSpeed: 5
-  dashForce: 3
+  dashForce: 6
