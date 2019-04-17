@@ -19,7 +19,7 @@ MonoBehaviour:
   maxCooldown: 3
   cost: 0
   icon: {fileID: 21300018, guid: e7070e049e58ff2408532b1f29414676, type: 3}
-  bulletPrefab: {fileID: 6842005966912345751, guid: b78cf72273aea40448a9b071db3d68c3,
+  bulletPrefab: {fileID: 6842005966912345751, guid: af3f157fa7763f844b6f75562682fd70,
     type: 3}
   minSpeed: 3
   maxSpeed: 5

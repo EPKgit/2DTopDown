@@ -68,11 +68,11 @@
                 {
                     "name": "AimDirection",
                     "id": "5f13fa39-87d8-4175-9fa8-041dc74fd9f6",
-                    "expectedControlLayout": "",
+                    "expectedControlLayout": "Axis",
                     "continuous": false,
                     "passThrough": true,
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "bindings": []
                 }
             ],
