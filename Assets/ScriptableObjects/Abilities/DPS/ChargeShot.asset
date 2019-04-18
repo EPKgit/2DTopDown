@@ -21,8 +21,8 @@ MonoBehaviour:
   icon: {fileID: 21300018, guid: e7070e049e58ff2408532b1f29414676, type: 3}
   bulletPrefab: {fileID: 6842005966912345751, guid: b78cf72273aea40448a9b071db3d68c3,
     type: 3}
-  minSpeed: 3
-  maxSpeed: 5
+  minSpeed: 1
+  maxSpeed: 6
   minSize: 1
   maxSize: 3
   maxChargeTime: 1

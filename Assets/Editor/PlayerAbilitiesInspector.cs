@@ -24,6 +24,10 @@ public class PlayerAbilitiesInspector : Editor
 		}
 		if(tickingAbilitiesFoldout = EditorGUILayout.Foldout(tickingAbilitiesFoldout, "TickingAbilities"))
 		{
+			if(playerAbilities.GetCurrentlyTickingAbilities() == null)
+			{
+				return;
+			}
 			foreach(string s in playerAbilities.GetCurrentlyTickingAbilities())
 			{
 				EditorGUILayout.LabelField(s);
