@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9055082008662328850}
   - component: {fileID: 9083198141420004395}
+  - component: {fileID: 3694888993877870292}
   m_Layer: 9
   m_Name: Shadow
   m_TagString: Untagged
@@ -79,6 +80,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &3694888993877870292
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837935133152824084}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!1 &3321087074732796671
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +322,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3367621464619575912}
   - component: {fileID: 6545968243102589047}
-  - component: {fileID: 1463536098699807923}
   - component: {fileID: 4278226723248722445}
   - component: {fileID: 1009684758047046816}
   - component: {fileID: 2795641864068498013}
@@ -347,22 +363,6 @@ MonoBehaviour:
   bulletEffect: {fileID: 6743994904176164014, guid: 655d6d5fb3864416fa11bbfd0de0edaf,
     type: 3}
   damage: 0
---- !u!58 &1463536098699807923
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6842005966912345751}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.097116
 --- !u!50 &4278226723248722445
 Rigidbody2D:
   serializedVersion: 4
