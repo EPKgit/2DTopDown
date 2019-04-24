@@ -77,6 +77,10 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 	/// <returns>True if the player is in a menu (currently only the starting menu), false otherwise</returns>
 	bool PlayerInMenu(InputDevice i)
 	{
+		if(!inMenu)
+		{
+			return false;
+		}
 		int index = playerStatuses.FindIndex( (t) => i == t.device);
 		if(index != -1)
 		{

@@ -31,6 +31,10 @@ public class BaseEnemyInspector : Editor
 		if(aggroFoldout = EditorGUILayout.Foldout(aggroFoldout, "Aggro"))
 		{
 			arr = baseEnemy.GetAggroDataArray();
+			if(arr == null)
+			{
+				return;
+			}
 			foreach(AggroData ad in arr)
 			{
 				EditorGUILayout.LabelField(string.Format("{0}:{1}", ad.source?.name ?? "NULL", ad.value));

@@ -80,6 +80,6 @@ public abstract class BaseEnemy : MonoBehaviour
 
 	public AggroData[] GetAggroDataArray()
 	{
-		return aggro.ToArray();
+		return aggro?.ToArray();
 	}
 }

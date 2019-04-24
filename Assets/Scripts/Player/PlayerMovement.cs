@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
 
 	public void UpdateSpeed(float f)
 	{
-		Debug.Log("updato speedo");
 		movementSpeed = f;
 	}
 
