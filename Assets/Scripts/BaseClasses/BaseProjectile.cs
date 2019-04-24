@@ -5,16 +5,25 @@ using UnityEngine;
 public class BaseProjectile : Poolable
 {
 	protected float timeLeft;
-	protected Collider2D col;
 	protected Rigidbody2D rb;
 	protected GameObject creator;
+  private SpriteRenderer[] renderers;
 
+
+  void Awake() {
+    renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+  }
 	public override void PoolInit(GameObject g)
 	{
 		base.PoolInit(g);
-		col = GetComponent<Collider2D>();
 		rb = GetComponent<Rigidbody2D>();
 	}
+  public void Resize(Vector3 value) {
+    foreach (SpriteRenderer sr in renderers)
+    {
+        sr.gameObject.transform.localScale = value;
+    }
+  }
 
 	public override void Reset()
 	{
