@@ -241,6 +241,7 @@ public class PoolManager : Singleton<PoolManager>
 		while(p.pool.Count < p.desiredSize)
 		{
 			GameObject temp = Instantiate(g);
+			temp.name = g.name + p.pool.Count;
 			temp.SetActive(false);
 			temp.GetComponent<Poolable>().PoolInit(g);
 			p.pool.Add(temp);

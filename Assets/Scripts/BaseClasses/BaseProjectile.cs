@@ -35,6 +35,7 @@ public class BaseProjectile : Poolable
 		transform.position = pos;
 		rb.velocity = direction;
 		creator = p;
+    Resize(new Vector3(1,1,1));
 	}
 
 	protected virtual void Update()

@@ -55,13 +55,13 @@ public class ChargeShot : Ability
 		float size = Mathf.Lerp(minSize, maxSize, chargePercentage);
     Bullet bullet = temp.GetComponent<Bullet>();
 		// temp.transform.localScale = new Vector3(size, size, size);
-    bullet.Resize(new Vector3(size, size, size));
 		bullet.Setup
 		(
 			playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, 
 		 	damage * playerAbilities.stats.GetValue(StatName.DamagePercentage)
 		);
 		temp.GetComponent<Poolable>().Reset();
+    bullet.Resize(new Vector3(size, size, size));
 	}
 
 	public override void FinishAbility()
