@@ -5,14 +5,12 @@ using UnityEngine;
 public class BaseProjectile : Poolable
 {
 	protected float timeLeft;
-	protected Collider2D col;
 	protected Rigidbody2D rb;
 	protected GameObject creator;
 
 	public override void PoolInit(GameObject g)
 	{
 		base.PoolInit(g);
-		col = GetComponent<Collider2D>();
 		rb = GetComponent<Rigidbody2D>();
 	}
 

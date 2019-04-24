@@ -78,7 +78,6 @@ public class PlayerInput : MonoBehaviour, IGameplayActions
 
 	void SetupTestingDevices()
 	{
-		Debug.Log(1);
 		if(testingController)
 		{
 			inputDevice = InputSystem.GetDevice<Gamepad>();
