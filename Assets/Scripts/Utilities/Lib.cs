@@ -34,7 +34,7 @@ public static class Lib
 		return Color.black;
 	}
 
-	public static T FindInHierarchy<T>(GameObject start)
+	public static T FindInHierarchy<T>(GameObject start) where T: class
 	{
 		GameObject top = start;
 		while(top.transform.parent != null)
@@ -44,24 +44,27 @@ public static class Lib
 		return Lib.ComponentRecursiveHelper<T>(top);
 	}
 
-	static T ComponentRecursiveHelper<T>(GameObject check)
+	static T ComponentRecursiveHelper<T>(GameObject check) where T: class
 	{
 		if(DEBUGFLAGS.LIB) Debug.Log("checking " + check.name);
 		T temp = check.GetComponent<T>();
 		if(DEBUGFLAGS.LIB) Debug.Log("found " + temp);
-		if(temp != null)
+		if(temp != null && !temp.Equals(null))
 		{
+			if(DEBUGFLAGS.LIB) Debug.Log("returning " + temp);
 			return temp;
 		}
 		foreach(Transform t in check.transform)
 		{
 			temp = Lib.ComponentRecursiveHelper<T>(t.gameObject);
-			if(temp != null)
+			if(temp != null && !temp.Equals(null))
 			{
+				if(DEBUGFLAGS.LIB) Debug.Log("returning " + temp);
 				return temp;
 			}
 		}
-		return default(T);
+		if(DEBUGFLAGS.LIB) Debug.Log("returning null");
+		return null;
 	}
 
 	public static bool HasTagInHierarchy(GameObject start, string tag)
