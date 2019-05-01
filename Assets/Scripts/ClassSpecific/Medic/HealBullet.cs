@@ -11,7 +11,7 @@ public class HealBullet : BaseProjectile
 	public override void Reset()
 	{
 		base.Reset();
-		GetComponent<TrailRenderer>().Clear();
+		GetComponentInChildren<TrailRenderer>().Clear();
 	}
 
 	public void Setup(Vector3 pos, Vector3 direction, GameObject p, float d)
