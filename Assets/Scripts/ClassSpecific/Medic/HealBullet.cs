@@ -29,18 +29,19 @@ public class HealBullet : BaseProjectile
 		{
 			return;
 		}
-		if(Lib.HasTagInHierarchy(col.gameObject, "Enemy"))
+		if(Lib.HasTagInHierarchy(col.gameObject, "Player")) // Temp for testing, will be "Enemy" later
 		{
 			Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(damage, gameObject, creator);
+			Lib.FindInHierarchy<IHealable>(creator)?.Heal(damage / 2, gameObject, creator);
 			BulletEffect(transform.position);
 			DestroySelf();
 		}
-		if(Lib.HasTagInHierarchy(col.gameObject, "Player"))
+		/*if(Lib.HasTagInHierarchy(col.gameObject, "Player"))
 		{
 			Lib.FindInHierarchy<IHealable>(col.gameObject)?.Heal(damage / 2, gameObject, creator);
 			BulletEffect(transform.position);
 			DestroySelf();
-		}
+		}*/
 	}
 
 	void BulletEffect(Vector3 position) {
