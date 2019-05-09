@@ -9,6 +9,7 @@ public class BaseLaser : Poolable
     protected GameObject creator;
     protected Dictionary<BaseHealth, float> timers;
     protected List<BaseHealth> inside;
+    protected GameObject copy;
 
     void Awake()
     {
@@ -29,6 +30,8 @@ public class BaseLaser : Poolable
 
     public virtual void UpdateLine(Vector3 pos, Vector3 direction)
     {
+        GameObject.Destroy(copy);
+
         direction = Lib.DefaultDirectionCheck(direction);
 
         Vector3 endPoint = pos + direction * 20f;
@@ -41,6 +44,11 @@ public class BaseLaser : Poolable
         {
             endPoint = hit.point;
             distance = hit.distance;
+            if (Lib.HasTagInHierarchy(hit.transform.gameObject, "Mirror"))
+            {
+                copy = GameObject.Instantiate(this.gameObject);
+                copy.GetComponent<BaseLaser>().Setup(hit.point + Vector2.Reflect(direction, hit.normal) * .1f, Vector2.Reflect(direction, hit.normal), null);
+            }
         }
 
         Vector2 newpos = pos + direction * distance/2f;
@@ -58,7 +66,9 @@ public class BaseLaser : Poolable
 
     protected virtual void Update()
     {
-        UpdateLine(creator.transform.position, creator.GetComponent<PlayerInput>().GetAimDirection());
+        if (creator != null)
+            UpdateLine(creator.transform.position, creator.GetComponent<PlayerInput>().GetAimDirection());
+
         foreach (BaseHealth i in inside)
         {
             if (timers.ContainsKey(i))
@@ -108,5 +118,11 @@ public class BaseLaser : Poolable
             return;
         }
         inside.Remove(i);
+    }
+
+    void OnDestroy()
+    {
+        if (copy != null)
+            GameObject.Destroy(copy);
     }
 }
