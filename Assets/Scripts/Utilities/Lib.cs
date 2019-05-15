@@ -44,12 +44,23 @@ public static class Lib
 		return Lib.ComponentRecursiveHelper<T>(top);
 	}
 
+	static bool IsNotNull<T>(T toCheck)
+	{
+		if(typeof(T).IsSubclassOf(typeof(Component)))
+		{
+			if(DEBUGFLAGS.LIB) Debug.Log(string.Format("isComponent and toCheck==null:{0} || toCheck.Equals(null):{1}", toCheck != null, !toCheck?.Equals(null)));
+			return toCheck != null && !toCheck.Equals(null);
+		}
+		if(DEBUGFLAGS.LIB) Debug.Log(string.Format("isntComponent and toCheck==null:{0}", toCheck != null));
+		return toCheck != null;
+	}
+
 	static T ComponentRecursiveHelper<T>(GameObject check) where T: class
 	{
 		if(DEBUGFLAGS.LIB) Debug.Log("checking " + check.name);
 		T temp = check.GetComponent<T>();
 		if(DEBUGFLAGS.LIB) Debug.Log("found " + temp);
-		if(temp != null && !temp.Equals(null))
+		if(IsNotNull<T>(temp))
 		{
 			if(DEBUGFLAGS.LIB) Debug.Log("returning " + temp);
 			return temp;
@@ -57,7 +68,7 @@ public static class Lib
 		foreach(Transform t in check.transform)
 		{
 			temp = Lib.ComponentRecursiveHelper<T>(t.gameObject);
-			if(temp != null && !temp.Equals(null))
+			if(IsNotNull<T>(temp))
 			{
 				if(DEBUGFLAGS.LIB) Debug.Log("returning " + temp);
 				return temp;

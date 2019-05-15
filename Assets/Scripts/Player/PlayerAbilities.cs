@@ -24,6 +24,7 @@ public class PlayerAbilities : MonoBehaviour
 	private Ability ability2;
 	private Ability ability3;
 	private Ability attack;
+	private List<Ability> passives;
 
 	private List<Ability> currentlyTicking;
 
@@ -33,25 +34,51 @@ public class PlayerAbilities : MonoBehaviour
 		col = transform.Find("Colliders").GetComponent<CircleCollider2D>();
 		stats = GetComponent<StatBlock>();
 		hp = GetComponent<BaseHealth>();
-		currentlyTicking = new List<Ability>();
 	}
 
-	void Start()
+	void OnEnable()
 	{
 		Initialize(abilitySet);
 	}
 
+	void OnDisable()
+	{
+		foreach(Ability a in currentlyTicking)
+		{
+			a.FinishAbility();
+		}
+	}
+
 	public void Initialize(AbilitySet _as)
 	{
+		currentlyTicking = new List<Ability>();
+		passives = new List<Ability>();
 		abilitySet = _as;
 		attack = ScriptableObject.Instantiate(abilitySet.attack);
 		ability1 = ScriptableObject.Instantiate(abilitySet.ability1);
 		ability2 = ScriptableObject.Instantiate(abilitySet.ability2);
 		ability3 = ScriptableObject.Instantiate(abilitySet.ability3);
+		foreach(Ability a in abilitySet.passiveEffects)
+		{
+			if(a.isPassive)
+			{
+				passives.Add(ScriptableObject.Instantiate(a));
+			}
+			else
+			{
+				Debug.Log("Non-passive ability added to passive ability list of " + abilitySet.name);
+			}
+			
+		}
 		attack.Initialize(this);
 		ability1.Initialize(this);
 		ability2.Initialize(this);
 		ability3.Initialize(this);
+		foreach(Ability a in passives)
+		{
+			a.Initialize(this);
+			currentlyTicking.Add(a);
+		}
 		initializedEvent(ability1, ability2, ability3, attack);
 	}
 

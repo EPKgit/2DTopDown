@@ -42,8 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1430077455945688394}
   - component: {fileID: 1430077455945688397}
-  - component: {fileID: 1430077455945688399}
   - component: {fileID: 2783044493610525030}
+  - component: {fileID: 3584314302511729679}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -88,24 +88,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1430077455945688399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430077455945688398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61d0423f0f2b30d45bd2a0e76dd1b10d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  blockAngle: 100
-  SplodeEffect: {fileID: 6994869892048497080, guid: 4220ad67220fc4ee19b68f40101a34a4,
-    type: 3}
-  RedSplodeEffect: {fileID: 7237582445734271026, guid: 1038b373f60184bb9b0d7c5e8b353742,
-    type: 3}
 --- !u!114 &2783044493610525030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +101,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  blockAngle: 120
   turnSpeed: 0.05
+--- !u!114 &3584314302511729679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430077455945688398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8e0d4fb5799864391c60bb2d0628c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  RedSplodeEffect: {fileID: 7237582445734271026, guid: 1038b373f60184bb9b0d7c5e8b353742,
+    type: 3}
+  WhiteSplodeEffect: {fileID: 6994869892048497080, guid: 4220ad67220fc4ee19b68f40101a34a4,
+    type: 3}
 --- !u!1 &1430077456077003647
 GameObject:
   m_ObjectHideFlags: 0
