@@ -23,7 +23,7 @@ public class Bullet : BaseProjectile
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if(!Lib.HasTagInHierarchy(col.gameObject, "Enemy"))
+		if(!Lib.HasTagInHierarchy(col.gameObject, "Enemy") && col.gameObject.layer!=13)
 		{
 			return;
 		}

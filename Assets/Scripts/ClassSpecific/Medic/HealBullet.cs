@@ -25,17 +25,21 @@ public class HealBullet : BaseProjectile
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger " + creator);
-		if(creator == null || Lib.HasParent(col.gameObject, creator))
-		{
-			return;
-		}
+
+    if(creator == null || Lib.HasParent(col.gameObject, creator))
+    {
+      return;
+    }
 		if(Lib.HasTagInHierarchy(col.gameObject, "Player")) // Temp for testing, will be "Enemy" later
 		{
 			Lib.FindInHierarchy<IDamagable>(col.gameObject)?.Damage(damage, gameObject, creator);
 			Lib.FindInHierarchy<IHealable>(creator)?.Heal(damage / 2, gameObject, creator);
-			BulletEffect(transform.position);
-			DestroySelf();
-		}
+      BulletEffect(transform.position);
+      DestroySelf();
+		} else if(col.gameObject.layer!=13) {
+      BulletEffect(transform.position);
+      DestroySelf();
+    }
 		/*if(Lib.HasTagInHierarchy(col.gameObject, "Player"))
 		{
 			Lib.FindInHierarchy<IHealable>(col.gameObject)?.Heal(damage / 2, gameObject, creator);
