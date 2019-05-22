@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Tank
   abilities: {fileID: 11400000, guid: d12d51b7c49bc86438dc54ee52bd340e, type: 2}
+  playerModelPrefab: {fileID: 6166013570086772474, guid: e52acca0aa1774a4793ec967509f43e0,
+    type: 3}
   stats:
   - name: 0
     value: 2

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Damage
   abilities: {fileID: 11400000, guid: ddfe9a98bcc900d44a03c5db4130395c, type: 2}
+  playerModelPrefab: {fileID: 5641135406126857100, guid: c2a21e1ff4b0447c8a001b94c546bba5,
+    type: 3}
   stats:
   - name: 0
     value: 5
