@@ -15,7 +15,13 @@ public delegate void OnCastDeleage(Ability a);
 public class Ability : ScriptableObject
 {
 	public event CooldownTickDelegate cooldownTick = delegate { };
-
+	/// <summary>
+	/// Set true if you want the ability to be passive, meant it is never used, the only methods to be called
+	/// will be Initialize, Tick, and FinishAbility. They will be initialized on spawn, ticked until they
+	/// return false, and finished when the player dies or is otherwise removed from play. Passive abilities
+	/// are added to a list within the AbilitySet of the player.
+	/// </summary>
+	public bool isPassive;
 	/// <summary>
 	/// Set true if you want the ability's Tick function and FinishAbility functions to get called
 	/// </summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BaseHealth), typeof(Rigidbody2D))]
+[RequireComponent(typeof(EnemyHealth), typeof(Rigidbody2D))]
 public abstract class BaseEnemy : MonoBehaviour
 {
   	public float speed = 1f;
@@ -20,13 +20,13 @@ public abstract class BaseEnemy : MonoBehaviour
 	
 	protected Rigidbody2D rb;
 	protected StatBlock stats;
-	protected BaseHealth hp;
+	protected EnemyHealth hp;
 
 	protected virtual void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		stats = GetComponent<StatBlock>();
-		hp = GetComponent<BaseHealth>();
+		hp = GetComponent<EnemyHealth>();
 		aggro = new PriorityQueue<AggroData>(MenuManager.maxPlayers, new MaxAggroComparator());
 		
 		hp.postDamageEvent += AddAggroEvent;
