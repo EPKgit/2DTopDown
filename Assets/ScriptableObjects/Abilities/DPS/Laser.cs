@@ -39,7 +39,7 @@ public class Laser : Ability
             // temp.transform.localScale = new Vector3(size, size, size);
             laser.Setup
             (
-                playerAbilities.transform.position, inputDirection, playerAbilities.gameObject
+                playerAbilities.transform.position, inputDirection, playerAbilities.gameObject, laser.totalLength
             );
             temp.GetComponent<Poolable>().Reset();
             return true;

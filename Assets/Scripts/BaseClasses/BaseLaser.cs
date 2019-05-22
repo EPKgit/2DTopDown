@@ -6,6 +6,8 @@ public class BaseLaser : Poolable
 {
     public float tickTime;
     public LayerMask laserMask;
+    public float segmentLength;
+    public float totalLength;
     protected GameObject creator;
     protected Dictionary<BaseHealth, float> timers;
     protected List<BaseHealth> inside;
@@ -21,10 +23,11 @@ public class BaseLaser : Poolable
         base.PoolInit(g);
     }
 
-    public virtual void Setup(Vector3 pos, Vector3 direction, GameObject p)
+    public virtual void Setup(Vector3 pos, Vector3 direction, GameObject p, float lengthLeft)
     {
         //transform.position = pos;
         creator = p;
+        totalLength = lengthLeft;
         UpdateLine(pos, direction);
     }
 
@@ -34,11 +37,11 @@ public class BaseLaser : Poolable
 
         direction = Lib.DefaultDirectionCheck(direction);
 
-        Vector3 endPoint = pos + direction * 20f;
+        Vector3 endPoint = pos + direction * segmentLength;
 
-        float distance = 20f;
+        float distance = segmentLength;
 
-        RaycastHit2D hit = Physics2D.Raycast(pos, direction, 20f, laserMask);
+        RaycastHit2D hit = Physics2D.Raycast(pos, direction, segmentLength, laserMask);
 
         if (hit)
         {
@@ -47,8 +50,13 @@ public class BaseLaser : Poolable
             if (Lib.HasTagInHierarchy(hit.transform.gameObject, "Mirror"))
             {
                 copy = GameObject.Instantiate(this.gameObject);
-                copy.GetComponent<BaseLaser>().Setup(hit.point + Vector2.Reflect(direction, hit.normal) * .1f, Vector2.Reflect(direction, hit.normal), null);
+                copy.GetComponent<BaseLaser>().Setup(hit.point + Vector2.Reflect(direction, hit.normal) * .1f, Vector2.Reflect(direction, hit.normal), null, totalLength - distance);
             }
+        }
+        else if (totalLength > 1)
+        {
+            copy = GameObject.Instantiate(this.gameObject);
+            copy.GetComponent<BaseLaser>().Setup(endPoint, direction, null, totalLength - distance);
         }
 
         Vector2 newpos = pos + direction * distance/2f;
