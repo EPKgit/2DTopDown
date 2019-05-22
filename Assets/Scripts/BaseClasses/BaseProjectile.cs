@@ -9,7 +9,6 @@ public class BaseProjectile : Poolable
 	protected GameObject creator;
   private SpriteRenderer[] renderers;
 
-
   void Awake() {
     renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
   }

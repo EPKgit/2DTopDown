@@ -10,4 +10,6 @@ public class AbilitySet : ScriptableObject
 	public Ability ability2;
 	public Ability ability3;
 	public Ability attack;
+
+	public List<Ability> passiveEffects;
 }

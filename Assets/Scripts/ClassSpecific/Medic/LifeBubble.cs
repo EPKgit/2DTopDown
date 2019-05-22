@@ -72,8 +72,8 @@ public class LifeBubble : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		BaseHealth i = Lib.FindInHierarchy<BaseHealth>(col.gameObject);
-		if(i == null)
-		{
+		if(i == null || !Lib.HasTagInHierarchy(col.gameObject, "Player"))
+            {
 			return;
 		}
 		this.enabled = true;

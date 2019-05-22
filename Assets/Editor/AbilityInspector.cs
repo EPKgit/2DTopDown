@@ -28,8 +28,10 @@ public class AbilityInspector : Editor
 		cost = serializedObject.FindProperty("cost");
 		cooldown = serializedObject.FindProperty("maxCooldown");
 		icon = serializedObject.FindProperty("icon");
+		passive = serializedObject.FindProperty("isPassive");
 	}
 
+	private SerializedProperty passive;
 	private SerializedProperty ticking;
 	private SerializedProperty hasDuration;
 	private SerializedProperty maxDuration;
@@ -41,19 +43,23 @@ public class AbilityInspector : Editor
 
 	public override void OnInspectorGUI()
 	{
-		EditorGUILayout.PropertyField(ticking);
-		if(ability.tickingAbility)
+		EditorGUILayout.PropertyField(passive);
+		if(!ability.isPassive)
 		{
-			EditorGUILayout.PropertyField(hasDuration);
-			if(ability.hasDuration)
+			EditorGUILayout.PropertyField(ticking);
+			if(ability.tickingAbility)
 			{
-				EditorGUILayout.PropertyField(maxDuration);
+				EditorGUILayout.PropertyField(hasDuration);
+				if(ability.hasDuration)
+				{
+					EditorGUILayout.PropertyField(maxDuration);
+				}
 			}
+			EditorGUILayout.PropertyField(pressOnly);
+			EditorGUILayout.PropertyField(cost);
+			EditorGUILayout.PropertyField(cooldown);
+			EditorGUILayout.PropertyField(icon);
 		}
-		EditorGUILayout.PropertyField(pressOnly);
-		EditorGUILayout.PropertyField(cost);
-		EditorGUILayout.PropertyField(cooldown);
-		EditorGUILayout.PropertyField(icon);
 		foreach(FieldInfo temp in childFields)
 		{
 			EditorGUILayout.PropertyField(serializedObject.FindProperty(temp.Name));
