@@ -90,6 +90,16 @@ public class PlayerAbilities : MonoBehaviour
 		ability3.cooldownTick += a3;
 	}
 
+	public List<string> GetCurrentlyInstantiatedAbilities()
+	{
+		List<string> ret = new List<string>();
+		ret.Add(attack.ToString());
+		ret.Add(ability1.ToString());
+		ret.Add(ability2.ToString());
+		ret.Add(ability3.ToString());
+		return ret;
+	}
+
 	public List<string> GetCurrentlyTickingAbilities()
 	{
 		if(currentlyTicking == null)

@@ -3736,7 +3736,7 @@ GameObject:
   - component: {fileID: 649918640}
   m_Layer: 13
   m_Name: Box (2)
-  m_TagString: Enemy
+  m_TagString: Mirror
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5525,7 +5525,7 @@ GameObject:
   - component: {fileID: 1969064120}
   m_Layer: 13
   m_Name: Box (1)
-  m_TagString: Enemy
+  m_TagString: Mirror
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5902,6 +5902,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 134613875577409526, guid: 0f49f21d6fcb244618ec45d03ed846b7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Mirror
       objectReference: {fileID: 0}
     - target: {fileID: 134613875577409523, guid: 0f49f21d6fcb244618ec45d03ed846b7,
         type: 3}

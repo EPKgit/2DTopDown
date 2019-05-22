@@ -14,11 +14,9 @@ public class PassiveRegen : Ability
 
 	public override void Initialize(PlayerAbilities pa)
 	{
-		Debug.Log("passive regen init");
 		hp = Lib.FindInHierarchy<IHealable>(pa.gameObject);
 		owner = pa.gameObject;
 		healInterval = 1f / hpPerSecond;
-		Debug.Log("hi:" + healInterval);
 	}
 
 	public override bool Tick(float deltaTime)
