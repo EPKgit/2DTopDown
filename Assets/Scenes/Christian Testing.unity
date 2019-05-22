@@ -375,6 +375,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.675
       objectReference: {fileID: 0}
+    - target: {fileID: 7547306055141472790, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449395333306620623, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3, type: 3}
 --- !u!1 &65611056
@@ -493,7 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 69363819}
   - component: {fileID: 69363820}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +696,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
 --- !u!1 &174759499
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +977,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 5.5, y: 1.5, z: 0}
   m_MaxChunkCount: 16
@@ -3643,7 +3653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531019692}
   - component: {fileID: 531019693}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3724,7 +3734,7 @@ GameObject:
   - component: {fileID: 649918642}
   - component: {fileID: 649918641}
   - component: {fileID: 649918640}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Box (2)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4152,7 +4162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 018c20ce29981492fba4e8809a685491, type: 3}
   m_Color: {r: 0, g: 1, b: 0.21991181, a: 1}
   m_FlipX: 0
@@ -4359,7 +4369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 882857008}
   - component: {fileID: 882857009}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4676,21 +4686,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: 0.999749
       objectReference: {fileID: 0}
-    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1043654682999484208, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -4705,6 +4700,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.675
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288421343025037297, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2095968703804025222, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
         type: 3}
@@ -4864,7 +4874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1149157179}
   - component: {fileID: 1149157180}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4943,7 +4953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1170385935}
   - component: {fileID: 1170385936}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5513,7 +5523,7 @@ GameObject:
   - component: {fileID: 1969064122}
   - component: {fileID: 1969064121}
   - component: {fileID: 1969064120}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Box (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5807,7 +5817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087684881}
   - component: {fileID: 2087684882}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5888,6 +5898,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box
       objectReference: {fileID: 0}
+    - target: {fileID: 134613875577409526, guid: 0f49f21d6fcb244618ec45d03ed846b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 134613875577409523, guid: 0f49f21d6fcb244618ec45d03ed846b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5942,6 +5957,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 134613874929264307, guid: 0f49f21d6fcb244618ec45d03ed846b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 134613875465714393, guid: 0f49f21d6fcb244618ec45d03ed846b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 134613875974301696, guid: 0f49f21d6fcb244618ec45d03ed846b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f49f21d6fcb244618ec45d03ed846b7, type: 3}
