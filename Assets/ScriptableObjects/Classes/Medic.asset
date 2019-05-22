@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Medic
   abilities: {fileID: 11400000, guid: 70640c98ce21f3f4788a495c92ba460a, type: 2}
+  playerModelPrefab: {fileID: 3035232071849715071, guid: 6b003f5a65be344dc8ffe2004e71b3a3,
+    type: 3}
   stats:
   - name: 0
     value: 1

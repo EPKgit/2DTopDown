@@ -222,6 +222,7 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 		GameObject temp;
 		PlayerInput pi;
 		PlayerAbilities pa;
+		PlayerRender pr;
 		StatBlock stats;
 		foreach(PlayerMenuState pms in playerStatuses)
 		{
@@ -230,11 +231,13 @@ public class MenuManager : Singleton<MenuManager>, IMenuActions
 			pi = temp.GetComponent<PlayerInput>();
 			pa = temp.GetComponent<PlayerAbilities>();
 			stats = temp.GetComponent<StatBlock>();
+			pr = temp.GetComponent<PlayerRender>();
 			pi.inputDevice = pms.device;
 			pi.playerID = x;
 			pi.Initialize();
-			pa.Initialize(classes[pms.selectionIndex].abilities);
+			pa.Initialize(classes[pms.selectionIndex]);
 			stats.Initialize(classes[pms.selectionIndex].stats);
+			pr.ReplaceModel(classes[pms.selectionIndex].playerModelPrefab);
 		}
 	}
 	#endregion

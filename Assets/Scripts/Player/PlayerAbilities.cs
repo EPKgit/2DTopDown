@@ -9,7 +9,7 @@ public class PlayerAbilities : MonoBehaviour
 	public delegate void AbilityInitializationDelegate(Ability a1, Ability a2, Ability a3, Ability attack);
 	public event AbilityInitializationDelegate initializedEvent = delegate { };
 
-    public AbilitySet abilitySet;
+	public PlayerClass playerClass;
 
 	[HideInInspector]
 	public Rigidbody2D rb;
@@ -19,6 +19,8 @@ public class PlayerAbilities : MonoBehaviour
 	public StatBlock stats;
 	[HideInInspector]
 	public BaseHealth hp;
+
+	private AbilitySet abilitySet;
 
 	private Ability ability1;
 	private Ability ability2;
@@ -38,7 +40,14 @@ public class PlayerAbilities : MonoBehaviour
 
 	void OnEnable()
 	{
-		Initialize(abilitySet);
+		if(abilitySet)
+		{
+			Initialize(abilitySet);
+		}
+		if(playerClass)
+		{
+			Initialize(playerClass);
+		}
 	}
 
 	void OnDisable()
@@ -47,6 +56,13 @@ public class PlayerAbilities : MonoBehaviour
 		{
 			a.FinishAbility();
 		}
+	}
+
+	public void Initialize(PlayerClass pc)
+	{
+		playerClass = pc;
+		Initialize(pc.abilities);
+		Lib.FindInHierarchy<PlayerRender>(gameObject)?.ReplaceModel(pc.playerModelPrefab);
 	}
 
 	public void Initialize(AbilitySet _as)

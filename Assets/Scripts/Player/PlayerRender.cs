@@ -13,4 +13,17 @@ public class PlayerRender : MonoBehaviour
 		yield return new WaitUntil( () => playerInput.playerID != -1);
 		sprite.color = Lib.GetPlayerColorByIndex(playerInput.playerID);
 	}
+
+	public void ReplaceModel(GameObject g)
+	{
+		Transform temp;
+		if( (temp = transform.Find("Render").Find("Model")) != null)
+		{
+			Debug.Log("killing old model");
+			Destroy(temp.gameObject);
+		}
+		GameObject newModel = Instantiate(g);
+		newModel.transform.position = Vector3.zero;
+		newModel.transform.SetParent(transform.Find("Render"), false);
+	}
 }

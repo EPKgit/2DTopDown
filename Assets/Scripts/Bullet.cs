@@ -23,13 +23,8 @@ public class Bullet : BaseProjectile
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
-        if (Lib.HasTagInHierarchy(col.gameObject, "Wall") || Lib.HasTagInHierarchy(col.gameObject, "Mirror"))
-        {
-            DestroySelf();
-            return;
-        }
-        if (!Lib.HasTagInHierarchy(col.gameObject, "Enemy"))
-		{
+		if(!Lib.HasTagInHierarchy(col.gameObject, "Enemy") && col.gameObject.layer!=13)
+    {
 			return;
 		}
 		if(DEBUGFLAGS.COLLISIONS) Debug.Log("trigger");

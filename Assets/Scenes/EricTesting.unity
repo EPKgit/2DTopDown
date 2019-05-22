@@ -575,7 +575,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -4
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 5.5, y: 1.5, z: 0}
+  m_ChunkCullingBounds: {x: 1.5, y: 1.5, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 3
@@ -1690,6 +1690,12 @@ PrefabInstance:
       propertyPath: abilitySet
       value: 
       objectReference: {fileID: 11400000, guid: 421eb861c29982d419fb214ab16abb8b,
+        type: 2}
+    - target: {fileID: 8029249362275195622, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
+        type: 3}
+      propertyPath: playerClass
+      value: 
+      objectReference: {fileID: 11400000, guid: a7d901c049ac977468fe1778592b7b5f,
         type: 2}
     - target: {fileID: 507927494127364977, guid: 2ac6ce366930c2a48a923c1f4e8e3ec3,
         type: 3}
