@@ -36,7 +36,7 @@ public class HealBullet : BaseProjectile
 			Lib.FindInHierarchy<IHealable>(creator)?.Heal(damage / 2, gameObject, creator);
       BulletEffect(transform.position);
       DestroySelf();
-		} else if(col.gameObject.layer!=13) {
+		} else if(col.gameObject.layer==13) {
       BulletEffect(transform.position);
       DestroySelf();
     }
